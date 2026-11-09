@@ -69,7 +69,7 @@
         return 'Available commands:\n' + [['whoami', 'who I am'], ['skills', 'my stack'], ['projects', 'things I have built'], ['certs', 'certifications'], ['contact', 'how to reach me'], ['theme', 'switch light / dark'], ['clear', 'clear the screen']]
           .map(function (c) { return '  <span class="hl">' + pad(c[0], 10) + '</span>' + c[1]; }).join('\n');
       },
-      whoami: function () { return e(D.profile.name + ' — ' + D.profile.role + '.\n' + D.facts[1].v + ', ' + D.facts[2].v + '.\nI automate the path from code to production.'); },
+      whoami: function () { return e(D.profile.name + ' — ' + D.profile.role + '.\n' + D.facts[1].v + ', ' + D.facts[2].v + '.\nBased in ' + D.profile.location + '.\nI automate the path from code to production.'); },
       skills: function () { return D.skills.map(function (g) { return '<span class="hl">' + e(pad(g.group.toLowerCase(), 22)) + '</span>' + e(g.items.join(' · ')); }).join('\n'); },
       projects: function () {
         return D.projects.map(function (p) {
@@ -99,18 +99,49 @@
     App.$$('[data-cmd]').forEach(function (b) { b.addEventListener('click', function () { run(b.getAttribute('data-cmd')); }); });
   });
 
-  /* GitHub activity graph (image from ghchart; falls back to a link when blocked) */
+  /* GitHub activity graph
+     1st choice: contribution data (github-contributions-api.jogruber.de) drawn in the site's own colours.
+     2nd choice: ready-made image from ghchart.  Last resort: a link to the profile. */
   App.register('activity', function (App) {
     var box = App.$('#activity-graph'); if (!box) return;
-    var user = App.data.config.githubUser;
-    var fallback = '<div class="activity-fallback"><span>The live contribution graph appears here when the site is hosted (for example on GitHub Pages).</span><a class="plink" href="https://github.com/' + App.esc(user) + '" target="_blank" rel="noopener noreferrer">Open my GitHub activity ↗</a></div>';
-    var img = new Image();
-    img.alt = 'GitHub contribution graph for ' + user;
-    img.loading = 'lazy';
-    img.onload = function () { box.innerHTML = ''; box.appendChild(img); };
-    img.onerror = function () { box.innerHTML = fallback; };
-    img.src = 'https://ghchart.rshah.org/0A8FB0/' + encodeURIComponent(user);
-    setTimeout(function () { if (!img.complete || !img.naturalWidth) img.onerror(); }, 6000);
+    var user = App.data.config.githubUser, e = App.esc, done = false;
+    var link = '<a class="plink" href="https://github.com/' + e(user) + '" target="_blank" rel="noopener noreferrer">Open my GitHub profile ↗</a>';
+    var showLink = function () {
+      if (done) return; done = true;
+      box.innerHTML = '<div class="activity-fallback"><span>The contribution graph couldn\'t load right now (it also won\'t show inside a preview).</span>' + link + '</div>';
+    };
+    var tryImage = function () {
+      if (done) return;
+      var img = new Image();
+      img.alt = 'GitHub contribution graph for ' + user;
+      img.onload = function () { if (done) return; done = true; box.innerHTML = ''; box.appendChild(img); };
+      img.onerror = showLink;
+      img.src = 'https://ghchart.rshah.org/0A8FB0/' + encodeURIComponent(user);
+      setTimeout(function () { if (!done) showLink(); }, 8000);
+    };
+    var draw = function (data) {
+      var days = (data && data.contributions) || [];
+      if (!days.length) throw new Error('no data');
+      var total = days.reduce(function (n, d) { return n + (d.count || 0); }, 0);
+      var first = new Date(days[0].date + 'T00:00:00').getDay();      // pad so columns start on Sunday
+      var cells = '';
+      for (var i = 0; i < first; i++) cells += '<i class="pad"></i>';
+      days.forEach(function (d) {
+        cells += '<i class="l' + (d.level || 0) + '" title="' + e(d.count + ' contribution' + (d.count === 1 ? '' : 's') + ' on ' + d.date) + '"></i>';
+      });
+      done = true;
+      box.innerHTML = '<div class="contrib-total"><b>' + total + '</b> contributions in the last year</div>' +
+        '<div class="contrib-scroll"><div class="contrib" role="img" aria-label="' + total + ' GitHub contributions in the last year">' + cells + '</div></div>' +
+        '<div class="contrib-legend"><span>Less</span><i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i><span>More</span></div>';
+      var sc = App.$('.contrib-scroll', box); if (sc) sc.scrollLeft = sc.scrollWidth;   // show the most recent weeks first
+    };
+    box.innerHTML = '<div class="activity-fallback"><span>Loading activity…</span></div>';
+    if (!window.fetch) return tryImage();
+    var timer = setTimeout(function () { if (!done) tryImage(); }, 6000);
+    fetch('https://github-contributions-api.jogruber.de/v4/' + encodeURIComponent(user) + '?y=last')
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function (data) { if (done) return; clearTimeout(timer); draw(data); })
+      .catch(function () { clearTimeout(timer); tryImage(); });
   });
 
   /* Contact form → Formspree (set formspreeId in js/data.js) */

@@ -19,7 +19,7 @@ window.SITE = {
     name: 'Zaid Muzaffar',
     role: 'Cloud & DevOps Engineer',
     email: 'zaidmuzaffar81@gmail.com',
-    location: 'Peshawar, Pakistan',
+    location: 'Islamabad, Pakistan',
     linkedin: 'https://www.linkedin.com/in/zaid-muzaffar-57329237a/',
     github: 'https://github.com/zaidmuzaffar',
     roles: ['Cloud & DevOps Engineer', 'CI/CD · Docker · Kubernetes', 'AWS: IAM · VPC · S3', 'Builder of AI that ships']
@@ -41,7 +41,7 @@ window.SITE = {
     { k: 'ROLE', v: 'Cloud & DevOps Engineer' },
     { k: 'DEGREE', v: 'BS Computer Science · 2026' },
     { k: 'UNIVERSITY', v: 'COMSATS Islamabad, Abbottabad' },
-    { k: 'LANGUAGES', v: 'English · Urdu · Pashto' }
+    { k: 'LOCATION', v: 'Islamabad, Pakistan' }
   ],
 
   /* ---------- Journey ---------- */

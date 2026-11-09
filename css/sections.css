@@ -141,3 +141,17 @@ a.sm-node:hover { border-color: var(--accent); transform: translateY(-3px); back
 .connect-deco { position: absolute; left: -70px; bottom: -70px; width: 260px; height: 260px; opacity: .18; pointer-events: none; }
 .connect-deco circle, .connect-deco path { stroke: currentColor; }
 .deco-hand { transform-origin: 130px 130px; transform-box: view-box; animation: spin 6s linear infinite; }
+
+/* GitHub contribution heatmap (drawn from real data) */
+.contrib-total { font-size: 14px; color: var(--text-2); }
+.contrib-total b { font-family: var(--display); font-size: 22px; color: var(--text); margin-right: 4px; }
+.contrib-scroll { overflow-x: auto; padding-bottom: 4px; }
+.contrib { display: grid; grid-template-rows: repeat(7, 11px); grid-auto-flow: column; grid-auto-columns: 11px; gap: 3px; width: max-content; }
+.contrib i, .contrib-legend i { width: 11px; height: 11px; border-radius: 3px; background: var(--pipe); display: block; }
+.contrib i.pad { background: transparent; }
+.contrib i.l1, .contrib-legend i.l1 { background: color-mix(in srgb, var(--accent) 30%, var(--pipe)); }
+.contrib i.l2, .contrib-legend i.l2 { background: color-mix(in srgb, var(--accent) 55%, var(--pipe)); }
+.contrib i.l3, .contrib-legend i.l3 { background: color-mix(in srgb, var(--accent) 80%, var(--pipe)); }
+.contrib i.l4, .contrib-legend i.l4 { background: var(--accent); }
+.contrib-legend { display: flex; align-items: center; gap: 4px; justify-content: flex-end; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.contrib-legend span { margin: 0 4px; }
