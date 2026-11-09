@@ -9,9 +9,9 @@ window.SITE = {
   config: {
     githubUser: 'zaidmuzaffar',
     // Formspree: create a free form at formspree.io and paste its ID (e.g. 'xyzabcd').
-    formspreeId: '',
+    formspreeId: 'xkjjljog',
     // GoatCounter: create a free site at goatcounter.com and paste its code (e.g. 'zaidmuzaffar').
-    goatcounter: ''
+    goatcounter: 'zaidmuzaffar'
   },
 
   /* ---------- Who I am ---------- */
