@@ -1,0 +1,85 @@
+/* =========================================================
+   LAYER 1 · DESIGN TOKENS
+   Every colour, font and radius in the site comes from here.
+   Dark is the default theme; [data-theme="light"] overrides it.
+   ========================================================= */
+
+:root {
+  /* surfaces */
+  --ink: #07131A;          /* page background */
+  --ink-2: #0A1C25;        /* cards */
+  --ink-3: #0C2530;        /* raised / active cards */
+  --ink-hover: #0C222D;    /* card hover */
+  --term-bar: #08171F;
+
+  /* lines */
+  --line: #16323E;
+  --line-2: #1E4250;
+  --pipe: #12303D;
+  --dash: #2A4A58;
+
+  /* text */
+  --text: #E6F1F5;
+  --text-2: #B8CBD4;
+  --muted: #8FA6B2;
+  --dim: #4F6F7D;
+
+  /* accents */
+  --accent: #3DD6F5;       /* primary (cyan) */
+  --accent-2: #9BEBFB;     /* primary, lighter */
+  --accent-ink: #07131A;   /* text on accent */
+  --warm: #FFB547;         /* secondary (amber) */
+  --warm-bg: #3A2A0E;
+  --warm-text: #FFC970;
+  --ok: #5BE49B;
+  --ok-bg: #0F3A26;
+  --callout-bg: #1A1608;
+  --callout-line: #5A4314;
+  --glow: rgba(61, 214, 245, .5);
+
+  /* type */
+  --display: 'Space Grotesk', system-ui, sans-serif;
+  --body: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* shape & layout */
+  --radius: 24px;
+  --radius-sm: 14px;
+  --max: 1240px;
+  --gutter: 32px;
+  --section-gap: 96px;
+
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --ink: #F4F7F8;
+  --ink-2: #FFFFFF;
+  --ink-3: #E8F7FB;
+  --ink-hover: #F0FBFE;
+  --term-bar: #EEF3F5;
+
+  --line: #DCE6EA;
+  --line-2: #C7D6DC;
+  --pipe: #D5E2E7;
+  --dash: #B9CBD2;
+
+  --text: #0B1C24;
+  --text-2: #334A55;
+  --muted: #5A717C;
+  --dim: #7B909A;
+
+  --accent: #0A8FB0;
+  --accent-2: #0B7D99;
+  --accent-ink: #FFFFFF;
+  --warm: #B86E00;
+  --warm-bg: #FFF1D9;
+  --warm-text: #8A5200;
+  --ok: #1E8E54;
+  --ok-bg: #DDF5E8;
+  --callout-bg: #FFF8EA;
+  --callout-line: #F0D49C;
+  --glow: rgba(10, 143, 176, .35);
+
+  color-scheme: light;
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>&quot;Mac&quot; Voice AI Assistant — Case study · Zaid Muzaffar</title>
+<meta name="description" content="An always-on assistant for my MacBook that wakes on its name, talks back in natural Urdu or English, and actually controls the laptop — with spoken confirmation before anything destructive.">
+<meta property="og:title" content="&quot;Mac&quot; Voice AI Assistant — Case study · Zaid Muzaffar">
+<meta property="og:description" content="An always-on assistant for my MacBook that wakes on its name, talks back in natural Urdu or English, and actually controls the laptop — with spoken confirmation before anything destructive.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#07131A">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem('zaid-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/sections.css">
+<link rel="stylesheet" href="../css/case.css">
+</head>
+<body data-base="../">
+<div class="toast" role="status" aria-live="polite"></div>
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="../index.html#top" class="logo" aria-label="zaid.ops home"><svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle class="logo-ring" cx="17" cy="17" r="15" fill="none" stroke-width="2"/><g class="logo-hand"><path d="M17 6 L17 17 L26 21" fill="none" stroke-width="2.5" stroke-linecap="round"/></g></svg><span class="logo-text">zaid<em>.ops</em></span></a>
+    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px">
+      <nav class="nav-links"><a href="../index.html#projects" style="display:inline-block">all projects</a></nav>
+      <div class="nav-tools">
+        <button type="button" class="icon-btn" data-palette aria-label="Search the site (Ctrl + K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span class="kbd-hint">Ctrl K</span></button>
+        <button type="button" class="icon-btn" data-theme-toggle aria-label="Switch theme"></button>
+        <a href="../index.html#contact" class="nav-cta">ssh zaid →</a>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+
+<section class="wrap case-hero">
+  <a class="back" href="../index.html#projects">← all projects</a>
+  <span class="label"><span class="dot"></span>CASE STUDY 03 · IN ACTIVE DEVELOPMENT</span>
+  <h1 class="reveal">"Mac"<br><span style="color:var(--accent)">A voice assistant that does things</span></h1>
+  <p class="lead reveal d1">An always-on assistant for my MacBook that wakes on its name, talks back in natural Urdu or English, and actually controls the laptop — with spoken confirmation before anything destructive.</p>
+  <div class="meta reveal d2"><div><small>ROLE</small><b>Sole developer</b></div><div><small>PLATFORM</small><b>macOS (Apple Silicon)</b></div><div><small>BRAIN</small><b>Gemini Live · Ollama fallback</b></div><div><small>LANGUAGES</small><b>Urdu & English</b></div><div><small>STATUS</small><b>Working daily build</b></div></div>
+  
+  <div class="case-links reveal d3"><a class="btn btn-primary" href="../docs/Voice_Assistant_Case_Study.pdf">Case study PDF ↓</a></div>
+</section>
+<div class="stage-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 110" preserveAspectRatio="xMidYMid slice">
+    <defs><filter id="sdglow3" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="4"/></filter></defs>
+    <path class="sd-base" d="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440" fill="none" stroke-width="2"/>
+    <path class="comet sd-glow" d="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440" pathLength="1000" fill="none" stroke-width="6" stroke-linecap="round" filter="url(#sdglow3)" opacity=".55"/>
+    <path class="comet sd-core" d="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440" pathLength="1000" fill="none" stroke-width="2" stroke-linecap="round"/>
+    <rect class="packet" x="-7" y="-3.5" width="14" height="7" rx="3.5"><animateMotion dur="4.5s" begin="0s" repeatCount="indefinite" rotate="auto" path="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440"/></rect><rect class="packet" x="-7" y="-3.5" width="14" height="7" rx="3.5"><animateMotion dur="4.5s" begin="1.5s" repeatCount="indefinite" rotate="auto" path="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440"/></rect><rect class="packet" x="-7" y="-3.5" width="14" height="7" rx="3.5"><animateMotion dur="4.5s" begin="3s" repeatCount="indefinite" rotate="auto" path="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440"/></rect>
+    <g class="sd-node"><circle cx="400" cy="70" r="6" stroke-width="2"/><text x="400" y="98" text-anchor="middle">plan ✓</text></g>
+    <g class="sd-node"><circle cx="1040" cy="70" r="6" stroke-width="2"/><text x="1040" y="98" text-anchor="middle">ship ✓</text></g>
+    <rect class="sd-pulse" x="652" y="20" width="136" height="28" rx="14" stroke-width="1.5"/>
+    <rect class="sd-pill" x="652" y="20" width="136" height="28" rx="14" stroke-width="1.5"/>
+    <text class="sd-label" x="720" y="38.5" text-anchor="middle">case study</text>
+  </svg>
+</div>
+<div class="wrap case-body">
+  <nav class="toc" aria-label="On this page"><a href="#goal">01 the goal</a><a href="#features">02 what it does</a><a href="#evolution">03 architecture — three versions</a><a href="#challenges">04 challenges</a><a href="#learned">05 what i learned</a><a href="#docs">06 documentation</a></nav>
+  <div class="case-content">
+    <section id="goal" class="reveal"><h2><span class="num">01 / the goal</span>The goal</h2>
+<p>Voice assistants rarely understand Pakistani Urdu, and they mostly answer questions rather than <em>doing</em> things. I wanted an assistant that feels like talking to a person — fast, natural turn-taking, replies in the language I spoke — and can carry out real tasks on my laptop for free.</p></section><section id="features" class="reveal"><h2><span class="num">02 / what it does</span>What it does</h2><div class="feature-grid"><div class="feature"><b>Wake word</b><span>Always listening in the background for its name, "Mac" — it answers "جی زید؟" and is ready.</span></div><div class="feature"><b>Natural conversation</b><span>Follow-up questions without repeating the wake word, with memory of recent context.</span></div><div class="feature"><b>Two languages</b><span>Replies in Urdu when spoken to in Urdu, English when spoken to in English.</span></div><div class="feature"><b>Laptop control</b><span>Opens apps, plays YouTube videos, checks the weather, takes screenshots, changes volume.</span></div><div class="feature"><b>WhatsApp</b><span>Sends messages to contacts by name, then reports back "ہو گیا".</span></div><div class="feature"><b>Safe by design</b><span>Restart, shutdown and deleting files need a spoken "jee" before anything happens.</span></div></div></section><section id="evolution" class="reveal"><h2><span class="num">03 / architecture — three versions</span>Architecture — three versions</h2>
+<h3>v1 · Fully local</h3><div class="flow-diagram"><div class="flow-node"><b>Speech-to-text</b><span>Local transcription</span></div><div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 14"><path class="flow" d="M0 7 H30" stroke="currentColor" stroke-width="3" fill="none"/><path d="M26 2 L33 7 L26 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><div class="flow-node"><b>Ollama · Qwen 2.5</b><span>Local LLM on the M2 Pro</span></div><div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 14"><path class="flow" d="M0 7 H30" stroke="currentColor" stroke-width="3" fill="none"/><path d="M26 2 L33 7 L26 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><div class="flow-node"><b>Text-to-speech</b><span>Spoken reply</span></div></div>
+<p>Free and private, but the 7B model produced broken, repetitive Urdu.</p>
+<h3>v2 · Cloud first, local fallback</h3><div class="flow-diagram"><div class="flow-node"><b>Speech-to-text</b><span>Transcribe</span></div><div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 14"><path class="flow" d="M0 7 H30" stroke="currentColor" stroke-width="3" fill="none"/><path d="M26 2 L33 7 L26 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><div class="flow-node"><b>Gemini API</b><span>Fallback chain of models</span></div><div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 14"><path class="flow" d="M0 7 H30" stroke="currentColor" stroke-width="3" fill="none"/><path d="M26 2 L33 7 L26 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><div class="flow-node"><b>Ollama 14B</b><span>Used when offline</span></div><div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 14"><path class="flow" d="M0 7 H30" stroke="currentColor" stroke-width="3" fill="none"/><path d="M26 2 L33 7 L26 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><div class="flow-node"><b>Text-to-speech</b><span>Human-like voice</span></div></div>
+<p>Much better Urdu, but three stages in a row (transcribe → think → speak) were too slow for natural conversation.</p>
+<h3>v3 · Real-time native audio</h3><div class="flow-diagram"><div class="flow-node"><b>Microphone</b><span>Streamed audio</span></div><div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 14"><path class="flow" d="M0 7 H30" stroke="currentColor" stroke-width="3" fill="none"/><path d="M26 2 L33 7 L26 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><div class="flow-node"><b>Gemini Live API</b><span>Listens and speaks natively</span></div><div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 14"><path class="flow" d="M0 7 H30" stroke="currentColor" stroke-width="3" fill="none"/><path d="M26 2 L33 7 L26 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><div class="flow-node"><b>Tool calls</b><span>macOS actions</span></div><div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 14"><path class="flow" d="M0 7 H30" stroke="currentColor" stroke-width="3" fill="none"/><path d="M26 2 L33 7 L26 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><div class="flow-node"><b>Speaker</b><span>Near-instant reply</span></div></div>
+<p>Gemini Live hears and speaks audio directly, removing two of the three stages. The local Qwen 2.5 14B model stays as the offline fallback.</p></section><section id="challenges" class="reveal"><h2><span class="num">04 / challenges</span>Challenges</h2>
+<h3>Urdu quality</h3><p>The small local model repeated itself. Moving to the 14B model and tuning generation (a repeat penalty and a token cap) fixed the loops.</p>
+<h3>Overloaded models and timeouts</h3><p>Free-tier models sometimes returned "high demand" errors. I built an ordered fallback chain. Setting the API timeout too low made the server reject requests, so the server timeout stays at 10 s while a shorter app-level timeout — a background thread and a queue — moves on to the next model.</p>
+<h3>Hearing itself</h3><p>The assistant could mishear its own speech, or background noise in a busy shop, as the wake word. I tightened when it listens and how it confirms it was addressed.</p>
+<h3>macOS permissions</h3><p>Controlling apps needs Accessibility, Automation, Screen Recording and Full Disk Access. I learned what each permission unlocks and how to tell a permission problem from an API problem.</p>
+<h3>Finding the right contact</h3><p>Spoken names don't match contact names exactly; matching had to be forgiving without ever messaging the wrong person.</p></section><section id="learned" class="reveal"><h2><span class="num">05 / what i learned</span>What I learned</h2>
+<ul><li>Latency is a product feature: architecture choices decide whether a conversation feels human.</li>
+<li>Designing failover between cloud and local models.</li>
+<li>Giving an AI real power over a computer safely — confirmations for anything destructive.</li></ul></section><section id="docs" class="reveal"><h2><span class="num">06 / documentation</span>Documentation</h2>
+<h3>Requirements</h3>
+<p>macOS on Apple Silicon, Python 3.11, Homebrew, ffmpeg, and Ollama with <code>qwen2.5:14b</code> pulled for offline use. A free Gemini API key for online mode.</p>
+<h3>Setup</h3>
+<ol><li><code>ollama pull qwen2.5:14b</code></li>
+<li>Create a virtual environment and install the Python requirements.</li>
+<li>Add the Gemini key to the environment.</li>
+<li>Grant the terminal Accessibility, Automation, Screen Recording and Full Disk Access in System Settings.</li>
+<li>Run the assistant; it starts in the background and waits for "Mac".</li></ol></section>
+    <a class="next-case" href="linux-automation.html"><span><small>next case study</small><b>Linux System Administration Automation</b></span><span aria-hidden="true" style="font-size:28px;color:var(--accent)">→</span></a>
+  </div>
+</div>
+</main>
+<footer class="wrap footer">
+  <span>© <span data-year>2026</span> Zaid Muzaffar</span>
+  <span><a href="../index.html#map">system map</a> · <a href="https://github.com/zaidmuzaffar">github</a> · build: passing · status: 200 OK</span>
+</footer>
+<script src="../js/data.js"></script>
+<script src="../js/core/app.js"></script>
+<script src="../js/core/theme.js"></script>
+<script src="../js/core/render.js"></script>
+<script src="../js/core/ui.js"></script>
+<script src="../js/core/features.js"></script>
+<script src="../js/core/palette.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

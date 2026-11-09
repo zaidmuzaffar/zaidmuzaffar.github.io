@@ -1,0 +1,62 @@
+/* =========================================================
+   LAYER 3 · LAYOUT
+   Page frame: container, nav, the standard section block,
+   scroll progress and footer. Every section uses .section +
+   .section-head so the whole page follows one structure.
+   ========================================================= */
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--ink) 84%, transparent);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent; transition: border-color .3s, background .3s;
+}
+.nav.scrolled { border-bottom-color: var(--pipe); }
+.nav-inner { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding-top: 14px; padding-bottom: 14px; }
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); }
+.logo:hover { color: var(--text); }
+.logo-text { font-family: var(--display); font-weight: 700; font-size: 18px; letter-spacing: .5px; }
+.logo-text em { font-style: normal; color: var(--accent); }
+.logo-ring { stroke: var(--accent); }
+.logo-hand { stroke: var(--warm); transform-origin: 17px 17px; transform-box: view-box; animation: spin 6s linear infinite; }
+.nav-links { display: flex; flex-wrap: wrap; gap: 2px; align-items: center; }
+.nav-links a { padding: 12px 11px; font-family: var(--mono); font-size: 13px; color: var(--muted); text-decoration: none; border-radius: 999px; transition: color .2s; }
+.nav-links a:hover, .nav-links a.on { color: var(--text); }
+.nav-tools { display: flex; gap: 8px; align-items: center; margin-left: 8px; }
+.icon-btn {
+  min-width: 44px; height: 44px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line-2);
+  background: transparent; color: var(--text); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  font-family: var(--mono); font-size: 12px; transition: border-color .2s, color .2s;
+}
+.icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+.icon-btn svg { width: 18px; height: 18px; }
+.nav-cta { padding: 12px 18px; border-radius: 999px; background: var(--accent); color: var(--accent-ink) !important; font-family: var(--mono); font-size: 13px; font-weight: 500; text-decoration: none; }
+.nav-cta:hover { background: var(--accent-2); }
+@media (max-width: 1060px) { .nav-links a { display: none; } }
+@media (max-width: 520px) { .kbd-hint { display: none; } }
+@media (max-width: 430px) { .nav-cta { display: none; } }
+
+/* ---------- Standard section ---------- */
+.section { padding-top: 40px; padding-bottom: var(--section-gap); scroll-margin-top: 70px; }
+.section-head { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; }
+.section-title { margin: 0; font-family: var(--display); font-size: clamp(38px, 5vw, 64px); font-weight: 700; letter-spacing: -1.5px; line-height: 1.05; }
+.section-kicker { display: block; margin-bottom: 10px; font-family: var(--mono); font-size: 14px; color: var(--warm); letter-spacing: .5px; font-weight: 400; }
+.section-sub { margin: 10px 0 0; max-width: 640px; font-size: 17px; color: var(--text-2); }
+
+/* ---------- Scroll progress (left edge) ---------- */
+.scroll-pipe { position: fixed; left: 18px; top: 50%; transform: translateY(-50%); height: 60vh; width: 10px; border-radius: 5px; background: var(--pipe); z-index: 40; }
+.scroll-pipe-fill { position: absolute; left: 0; top: 0; width: 100%; height: 0%; border-radius: 5px; background: var(--accent); box-shadow: 0 0 14px var(--glow); }
+.scroll-pipe-node { position: absolute; left: 50%; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: var(--ink); border: 2px solid var(--line-2); display: block; transition: border-color .3s, background .3s, transform .3s; }
+.scroll-pipe-node.on { border-color: var(--accent); background: var(--ink-3); }
+.scroll-pipe-node:hover { transform: scale(1.25); }
+.scroll-pipe-node span { position: absolute; left: 30px; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-size: 11px; color: var(--muted); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s; }
+.scroll-pipe-node:hover span, .scroll-pipe-node:focus-visible span { opacity: 1; }
+@media (max-width: 1340px) { .scroll-pipe { display: none; } }
+
+/* ---------- Footer ---------- */
+.footer { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; padding-top: 32px; padding-bottom: 40px; font-family: var(--mono); font-size: 12px; color: var(--dim); }
+.footer a { color: var(--muted); text-decoration: none; }
+.footer a:hover { color: var(--accent); }

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linux System Administration Automation — Case study · Zaid Muzaffar</title>
+<meta name="description" content="A set of modular Bash scripts that turn repetitive server chores — user access, environment setup, process monitoring, log parsing and health checks — into single, repeatable commands.">
+<meta property="og:title" content="Linux System Administration Automation — Case study · Zaid Muzaffar">
+<meta property="og:description" content="A set of modular Bash scripts that turn repetitive server chores — user access, environment setup, process monitoring, log parsing and health checks — into single, repeatable commands.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#07131A">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem('zaid-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/sections.css">
+<link rel="stylesheet" href="../css/case.css">
+</head>
+<body data-base="../">
+<div class="toast" role="status" aria-live="polite"></div>
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="../index.html#top" class="logo" aria-label="zaid.ops home"><svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle class="logo-ring" cx="17" cy="17" r="15" fill="none" stroke-width="2"/><g class="logo-hand"><path d="M17 6 L17 17 L26 21" fill="none" stroke-width="2.5" stroke-linecap="round"/></g></svg><span class="logo-text">zaid<em>.ops</em></span></a>
+    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px">
+      <nav class="nav-links"><a href="../index.html#projects" style="display:inline-block">all projects</a></nav>
+      <div class="nav-tools">
+        <button type="button" class="icon-btn" data-palette aria-label="Search the site (Ctrl + K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span class="kbd-hint">Ctrl K</span></button>
+        <button type="button" class="icon-btn" data-theme-toggle aria-label="Switch theme"></button>
+        <a href="../index.html#contact" class="nav-cta">ssh zaid →</a>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+
+<section class="wrap case-hero">
+  <a class="back" href="../index.html#projects">← all projects</a>
+  <span class="label"><span class="dot"></span>CASE STUDY 04 · CLOUD & DEVOPS</span>
+  <h1 class="reveal">Linux sysadmin<br><span style="color:var(--accent)">automation with Bash</span></h1>
+  <p class="lead reveal d1">A set of modular Bash scripts that turn repetitive server chores — user access, environment setup, process monitoring, log parsing and health checks — into single, repeatable commands.</p>
+  <div class="meta reveal d2"><div><small>ROLE</small><b>Sole developer</b></div><div><small>STACK</small><b>Linux · Bash · Git</b></div><div><small>FOCUS</small><b>Operations automation</b></div><div><small>STATUS</small><b>Complete</b></div></div>
+  
+  <div class="case-links reveal d3"><a class="btn btn-primary" href="../docs/Linux_Automation_Case_Study.pdf">Case study PDF ↓</a><a class="btn btn-ghost" href="https://github.com/zaidmuzaffar">GitHub profile ↗</a></div>
+</section>
+<div class="stage-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 110" preserveAspectRatio="xMidYMid slice">
+    <defs><filter id="sdglow4" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="4"/></filter></defs>
+    <path class="sd-base" d="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440" fill="none" stroke-width="2"/>
+    <path class="comet sd-glow" d="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440" pathLength="1000" fill="none" stroke-width="6" stroke-linecap="round" filter="url(#sdglow4)" opacity=".55"/>
+    <path class="comet sd-core" d="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440" pathLength="1000" fill="none" stroke-width="2" stroke-linecap="round"/>
+    <rect class="packet" x="-7" y="-3.5" width="14" height="7" rx="3.5"><animateMotion dur="4.5s" begin="0s" repeatCount="indefinite" rotate="auto" path="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440"/></rect><rect class="packet" x="-7" y="-3.5" width="14" height="7" rx="3.5"><animateMotion dur="4.5s" begin="1.5s" repeatCount="indefinite" rotate="auto" path="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440"/></rect><rect class="packet" x="-7" y="-3.5" width="14" height="7" rx="3.5"><animateMotion dur="4.5s" begin="3s" repeatCount="indefinite" rotate="auto" path="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440"/></rect>
+    <g class="sd-node"><circle cx="400" cy="70" r="6" stroke-width="2"/><text x="400" y="98" text-anchor="middle">plan ✓</text></g>
+    <g class="sd-node"><circle cx="1040" cy="70" r="6" stroke-width="2"/><text x="1040" y="98" text-anchor="middle">ship ✓</text></g>
+    <rect class="sd-pulse" x="652" y="20" width="136" height="28" rx="14" stroke-width="1.5"/>
+    <rect class="sd-pill" x="652" y="20" width="136" height="28" rx="14" stroke-width="1.5"/>
+    <text class="sd-label" x="720" y="38.5" text-anchor="middle">case study</text>
+  </svg>
+</div>
+<div class="wrap case-body">
+  <nav class="toc" aria-label="On this page"><a href="#why">01 why i built it</a><a href="#scripts">02 what the scripts do</a><a href="#design">03 design</a><a href="#learned">04 what i learned</a></nav>
+  <div class="case-content">
+    <section id="why" class="reveal"><h2><span class="num">01 / why i built it</span>Why I built it</h2>
+<p>Doing the same server tasks by hand is slow and error-prone: a missed step when creating a user, a forgotten environment variable, a log nobody reads until something breaks. The DevOps idea I wanted to practice is simple — <strong>if you do it twice, script it</strong>.</p></section><section id="scripts" class="reveal"><h2><span class="num">02 / what the scripts do</span>What the scripts do</h2><div class="feature-grid"><div class="feature"><b>User access management</b><span>Create, modify and remove users and their permissions consistently.</span></div><div class="feature"><b>Environment setup</b><span>Set up environment variables and configuration the same way every time.</span></div><div class="feature"><b>Process monitoring</b><span>Check that important processes are running and report the ones that aren't.</span></div><div class="feature"><b>Log parsing</b><span>Scan logs automatically and pull out the lines that matter.</span></div><div class="feature"><b>Health checks</b><span>Routine checks of system health to streamline maintenance.</span></div><div class="feature"><b>Version control</b><span>Scripts and configuration documentation managed in Git and GitHub.</span></div></div></section><section id="design" class="reveal"><h2><span class="num">03 / design</span>Design</h2>
+<p>Each script does one job and can be run on its own or combined with the others. Keeping them modular made them easier to test, reuse and document — the same principle behind larger automation and infrastructure-as-code tools.</p>
+<p>The foundation came from my Operating Systems course, where I worked in Ubuntu from the command line throughout: files and directories, processes, threads, concurrency and scheduling.</p></section><section id="learned" class="reveal"><h2><span class="num">04 / what i learned</span>What I learned</h2>
+<ul><li>Writing Bash that is safe to run more than once.</li>
+<li>Thinking in terms of repeatable operations instead of one-off commands.</li>
+<li>Documenting operational work so someone else can run it.</li></ul>
+<p>This is the base I'm building on for DevOps: next come CI/CD pipelines, containers and infrastructure as code.</p></section>
+    <a class="next-case" href="lawyer-client.html"><span><small>next case study</small><b>Lawyer–Client Matching Platform</b></span><span aria-hidden="true" style="font-size:28px;color:var(--accent)">→</span></a>
+  </div>
+</div>
+</main>
+<footer class="wrap footer">
+  <span>© <span data-year>2026</span> Zaid Muzaffar</span>
+  <span><a href="../index.html#map">system map</a> · <a href="https://github.com/zaidmuzaffar">github</a> · build: passing · status: 200 OK</span>
+</footer>
+<script src="../js/data.js"></script>
+<script src="../js/core/app.js"></script>
+<script src="../js/core/theme.js"></script>
+<script src="../js/core/render.js"></script>
+<script src="../js/core/ui.js"></script>
+<script src="../js/core/features.js"></script>
+<script src="../js/core/palette.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
