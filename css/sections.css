@@ -155,3 +155,9 @@ a.sm-node:hover { border-color: var(--accent); transform: translateY(-3px); back
 .contrib i.l4, .contrib-legend i.l4 { background: var(--accent); }
 .contrib-legend { display: flex; align-items: center; gap: 4px; justify-content: flex-end; font-family: var(--mono); font-size: 11px; color: var(--muted); }
 .contrib-legend span { margin: 0 4px; }
+
+/* Console: both columns end at the same line */
+.console-grid { align-items: stretch; }
+.console-grid .terminal { display: flex; flex-direction: column; }
+.console-grid .term-out { flex: 1; height: auto; min-height: 280px; max-height: none; }
+.console-grid .side-stack > .activity:last-child { flex: 1; }
