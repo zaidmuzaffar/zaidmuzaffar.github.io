@@ -90,7 +90,7 @@
       var line = document.createElement('div'); line.className = 'cmd'; line.textContent = raw.trim(); out.appendChild(line);
       var key = c.split(' ')[0], res = document.createElement('div');
       res.innerHTML = cmds[key] ? cmds[key]() : 'command not found: ' + e(key) + ' — try <span class="hl">help</span>';
-      out.appendChild(res); out.scrollTop = out.scrollHeight;
+      out.appendChild(res); out.scrollTop = out.scrollHeight; if (App.markExternal) App.markExternal();
     };
     App.runCommand = run;
     out.innerHTML = 'Welcome to zaid.ops — type <span class="hl">help</span> or tap a command below.';
@@ -103,7 +103,7 @@
   App.register('activity', function (App) {
     var box = App.$('#activity-graph'); if (!box) return;
     var user = App.data.config.githubUser;
-    var fallback = '<div class="activity-fallback"><span>The live contribution graph appears here when the site is hosted (for example on GitHub Pages).</span><a class="plink" href="https://github.com/' + App.esc(user) + '">Open my GitHub activity ↗</a></div>';
+    var fallback = '<div class="activity-fallback"><span>The live contribution graph appears here when the site is hosted (for example on GitHub Pages).</span><a class="plink" href="https://github.com/' + App.esc(user) + '" target="_blank" rel="noopener noreferrer">Open my GitHub activity ↗</a></div>';
     var img = new Image();
     img.alt = 'GitHub contribution graph for ' + user;
     img.loading = 'lazy';

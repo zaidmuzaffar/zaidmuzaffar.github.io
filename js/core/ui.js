@@ -25,6 +25,16 @@
 
   /* Copy buttons + click ping */
   App.register('interactions', function (App) {
+    /* External links (GitHub, LinkedIn, demos…) always open in a new tab */
+    var markExternal = function () {
+      App.$$('a[href^="http"]').forEach(function (a) {
+        if (a.host === location.host) return;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+      });
+    };
+    markExternal();
+    App.markExternal = markExternal;
     document.addEventListener('click', function (e) {
       var btn = e.target.closest('[data-copy]');
       if (!btn) return;
