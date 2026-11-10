@@ -9,6 +9,7 @@ App.start([
   'render',       // data.js → markup (home page only)
   'preloader',    // boot screen
   'interactions', // copy buttons, click ping
+  'lightbox',     // image preview
   'reveal',       // animate in on scroll
   'scroll',       // nav, progress, timeline, TOC
   'hero',         // typed role, status dial

@@ -55,6 +55,26 @@
     });
   });
 
+  /* Image preview (lightbox): any element with data-lightbox="image.jpg" */
+  App.register('lightbox', function (App) {
+    var box = document.createElement('div');
+    box.className = 'lightbox'; box.hidden = true;
+    box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-label', 'Image preview');
+    box.innerHTML = '<button type="button" class="lightbox-close" aria-label="Close preview">✕</button><img alt="">';
+    document.body.appendChild(box);
+    var img = App.$('img', box), closeBtn = App.$('.lightbox-close', box), last = null;
+    var close = function () { box.hidden = true; document.body.style.overflow = ''; if (last) last.focus(); };
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-lightbox]');
+      if (t) {
+        last = t; img.src = t.getAttribute('data-lightbox'); img.alt = t.getAttribute('data-lightbox-alt') || '';
+        box.hidden = false; document.body.style.overflow = 'hidden'; closeBtn.focus(); return;
+      }
+      if (!box.hidden && (e.target === box || e.target === closeBtn)) close();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden) close(); });
+  });
+
   /* Reveal on scroll */
   App.register('reveal', function (App) {
     var els = App.$$('.reveal');

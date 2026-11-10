@@ -92,7 +92,7 @@ The HTML pages share one head, nav, footer and section connector (`tools/partial
 |---|---|---|---|---|
 | Star Pump House | https://starpumphouse.web.app | https://github.com/zaidmuzaffar/star-pump-house | `demo@starpumphouse.com` / `Star123@` | [Full case study](https://github.com/zaidmuzaffar/star-pump-house/blob/main/docs/Star_Pump_House_Full_Case_Study.pdf) |
 | Vigil | https://vigil-7fa6b.web.app | — | — (mobile app) | `docs/Vigil_Case_Study.pdf` |
-| Skill Go Lab (internship capstone) | — | — | — | `docs/Cloud_DevOps_Internship_Certificate_Zaid_Muzaffar.pdf` (certificate) |
+| Skill Go Lab (internship lab) | — | https://github.com/zaidmuzaffar/SkillSetGo-Cloud-Devops-Internship | — | — |
 | "Mac" Voice Assistant | — (runs locally) | — | — | `docs/Voice_Assistant_Case_Study.pdf` |
 | Linux Automation | — | — | — | `docs/Linux_Automation_Case_Study.pdf` |
 | Lawyer–Client Platform (FYP) | — | — | — | `docs/Lawyer_Client_Platform_Case_Study.pdf` |

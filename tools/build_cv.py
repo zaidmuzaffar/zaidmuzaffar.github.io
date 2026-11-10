@@ -54,17 +54,17 @@ li {{ margin-bottom: 1.5px; }}
 </header>
 
 <h2>Profile</h2>
-<p>Computer Science graduate focused on cloud engineering and DevOps. Completed a 160-hour Cloud &amp; DevOps internship covering Docker, Kubernetes, Terraform and CI/CD with GitHub Actions, and deployed a production-grade capstone project. Built and deployed a live web application on Firebase that my family's hardware business uses every day, and currently building a safety app with on-device machine learning and a bilingual voice AI assistant. Looking for a Cloud / DevOps role to automate deployment pipelines and run reliable, scalable infrastructure.</p>
+<p>Computer Science graduate focused on cloud engineering and DevOps. Completed a 160-hour Cloud &amp; DevOps internship covering Docker, Kubernetes, Terraform and CI/CD with GitHub Actions, with an overall rating of Excellent. Built and deployed a live web application on Firebase that my family's hardware business uses every day, and currently building a safety app with on-device machine learning and a bilingual voice AI assistant. Looking for a Cloud / DevOps role to automate deployment pipelines and run reliable, scalable infrastructure.</p>
 
 <h2>Experience</h2>
 <div class="item">
   <div class="row"><b>Cloud &amp; DevOps Intern</b><span class="date">Completed 15 Oct 2026 &nbsp;·&nbsp; 4 weeks, 160 hours</span></div>
   <div class="sub">Skill Set Go EduTech &nbsp;·&nbsp; Virtual internship &nbsp;·&nbsp; Overall performance: Excellent</div>
   <ul>
-    <li>Configured and deployed a production-grade capstone project, <b>Skill Go Lab</b>, end to end.</li>
-    <li>Containerised applications with <b>Docker</b> and automated build-and-deploy with <b>GitHub Actions</b> CI/CD pipelines.</li>
-    <li>Provisioned infrastructure as code with <b>Terraform</b>.</li>
-    <li>Orchestrated a <b>Kubernetes</b> cluster on Minikube with kubectl; managed configuration and credentials with ConfigMaps and Secrets.</li>
+    <li>Containerised an Nginx web application with <b>Docker</b> and <b>Docker Compose</b> (web + Redis services).</li>
+    <li>Wrote a <b>GitHub Actions</b> workflow that builds the Docker image automatically on every push and pull request.</li>
+    <li>Deployed the application to <b>Kubernetes</b> (Minikube) with a Deployment and NodePort Service using kubectl; added ConfigMaps and Secrets.</li>
+    <li>Learned the <b>Terraform</b> workflow (init, plan, apply) and documented the deployment architecture.</li>
     <li>Linux system administration and shell scripting; tracked work in Zenhub. Completed 16+ practical tasks, 3 mini projects and 2 major projects.</li>
   </ul>
 </div>
@@ -91,9 +91,9 @@ li {{ margin-bottom: 1.5px; }}
   <div class="tech"><b>Tech:</b> JavaScript, Firebase (Auth, Firestore, Hosting, App Check), Gemini AI, Git &nbsp;·&nbsp; <a href="https://starpumphouse.web.app">Live demo</a> · <a href="https://github.com/zaidmuzaffar/star-pump-house">Code</a> · Demo login: demo@starpumphouse.com / Star123@</div>
 </div>
 <div class="item">
-  <div class="row"><b>Skill Go Lab – Internship Capstone</b><span class="date">Oct 2026</span></div>
-  <p>Production-grade deployment configured end to end: containerised with Docker, delivered through a GitHub Actions pipeline, infrastructure defined in Terraform and running on Kubernetes (Minikube) with ConfigMaps and Secrets.</p>
-  <div class="tech"><b>Tech:</b> Docker, GitHub Actions, Terraform, Kubernetes, Linux</div>
+  <div class="row"><b>Skill Go Lab – DevOps Internship Lab</b><span class="date">Oct 2026</span></div>
+  <p>Week-by-week internship repository: Linux administration reports, a Dockerised Nginx app with Compose, a GitHub Actions build workflow, a Minikube deployment with ConfigMaps and Secrets, and Terraform basics.</p>
+  <div class="tech"><b>Tech:</b> Linux, Docker, Docker Compose, GitHub Actions, Kubernetes (Minikube), Terraform &nbsp;·&nbsp; <a href="https://github.com/zaidmuzaffar/SkillSetGo-Cloud-Devops-Internship">Code</a></div>
 </div>
 <div class="item">
   <div class="row"><b>Automated Linux System Administration &amp; Shell Scripts</b><span class="date"></span></div>

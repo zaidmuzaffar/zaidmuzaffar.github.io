@@ -70,8 +70,13 @@
         '</div>' +
         '<aside class="xp-side">' +
           '<div class="xp-stats">' + x.stats.map(function (st) { return '<div><b>' + e(st.n) + '</b><small>' + e(st.k) + '</small></div>'; }).join('') + '</div>' +
-          '<a class="xp-cert" href="' + e(x.certificate) + '"><img src="' + e(x.certificateImage) + '" alt="Certificate of completion: ' + e(x.role) + ', ' + e(x.org) + '" loading="lazy"><span>View certificate (PDF) ↓</span></a>' +
-          '<small class="mono xp-id">' + e(x.id) + '</small>' +
+          '<figure class="xp-cert">' +
+            '<button type="button" class="xp-cert-preview" data-lightbox="' + e(x.certificateLarge || x.certificateImage) + '" data-lightbox-alt="Certificate of completion: ' + e(x.role) + ', ' + e(x.org) + '" aria-label="Preview certificate">' +
+              '<img src="' + e(x.certificateImage) + '" alt="Certificate of completion: ' + e(x.role) + ', ' + e(x.org) + '" loading="lazy"><span class="xp-zoom" aria-hidden="true">⤢ Preview</span></button>' +
+            '<figcaption><small class="mono xp-id">' + e(x.id) + '</small>' +
+              '<a class="plink xp-dl" href="' + e(x.certificate) + '" download>Download PDF ↓</a></figcaption>' +
+          '</figure>' +
+          (x.repo ? '<a class="plink" href="' + e(x.repo) + '" style="align-self:flex-start">Internship lab repo ↗</a>' : '') +
         '</aside></article>';
     }).join(''));
 
@@ -106,7 +111,7 @@
     }).join(''));
     put('#certs-issuer', e(D.certsIssuer));
     put('#certs', D.certs.map(function (c) {
-      return '<a class="cert" href="' + e(c.href) + '">' + e(c.name) + ' <small>' + e(c.tag || 'verify ↗') + '</small></a>';
+      return '<a class="cert" href="' + e(c.href) + '"' + (c.download ? ' download' : '') + '>' + e(c.name) + ' <small>' + e(c.tag || 'verify ↗') + '</small></a>';
     }).join(''));
     put('#langs', D.languages.map(function (l) {
       return '<div class="lang"><b>' + e(l.name) + '</b><span>' + e(l.level) + '</span></div>';

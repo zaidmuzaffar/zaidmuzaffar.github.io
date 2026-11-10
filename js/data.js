@@ -52,14 +52,14 @@ window.SITE = {
       org: 'Skill Set Go EduTech',
       type: 'Internship · Virtual',
       period: '4 weeks · 160 hours · completed 15 Oct 2026',
-      summary: 'An industry-oriented internship where I configured and deployed a production-grade capstone project, Skill Go Lab, and finished with an overall performance rating of Excellent.',
+      summary: 'An industry-oriented, week-by-week internship covering the core DevOps toolchain, documented in my Skill Go Lab repository. Finished with an overall performance rating of Excellent.',
       highlights: [
         'Linux system administration and shell scripting',
-        'Containerised applications with Docker',
-        'Built CI/CD pipelines with GitHub Actions',
-        'Provisioned infrastructure as code with Terraform',
-        'Orchestrated a Kubernetes cluster on Minikube with kubectl',
-        'Managed configuration and secrets with Kubernetes ConfigMaps and Secrets'
+        'Containerised an Nginx web app with Docker and Docker Compose',
+        'GitHub Actions workflow that builds the Docker image on every push',
+        'Deployed the app to Kubernetes (Minikube) with a Deployment and NodePort Service',
+        'Kubernetes ConfigMaps and Secrets for configuration',
+        'Terraform fundamentals: init, plan and apply workflow'
       ],
       stats: [
         { n: '16+', k: 'practical tasks' },
@@ -70,7 +70,9 @@ window.SITE = {
       tools: ['Docker', 'Kubernetes', 'Minikube', 'kubectl', 'Terraform', 'GitHub Actions', 'Linux', 'Bash', 'Git & GitHub', 'Zenhub'],
       id: 'Internship ID: SSG/REG/B1/0457',
       certificate: 'docs/Cloud_DevOps_Internship_Certificate_Zaid_Muzaffar.pdf',
-      certificateImage: 'assets/cert-internship.jpg'
+      certificateImage: 'assets/cert-internship.jpg',
+      certificateLarge: 'assets/cert-internship-large.jpg',
+      repo: 'https://github.com/zaidmuzaffar/SkillSetGo-Cloud-Devops-Internship'
     }
   ],
 
@@ -106,11 +108,11 @@ window.SITE = {
       ]
     },
     {
-      title: 'Skill Go Lab — Internship Capstone', status: 'done', statusText: 'DONE', cats: ['cloud'],
-      desc: 'Capstone of my Cloud & DevOps internship: a production-grade deployment I configured end to end — containerised with Docker, delivered through a GitHub Actions pipeline, infrastructure in Terraform and running on Kubernetes (Minikube) with ConfigMaps and Secrets.',
-      stack: 'Docker · GitHub Actions · Terraform · Kubernetes · Minikube',
+      title: 'Skill Go Lab — DevOps Internship Lab', status: 'done', statusText: 'DONE', cats: ['cloud'],
+      desc: 'My 4-week internship lab, week by week: Linux administration, an Nginx app containerised with Docker and Compose, a GitHub Actions workflow that builds the image on every push, a Minikube deployment with ConfigMaps and Secrets, and Terraform basics.',
+      stack: 'Linux · Docker · Docker Compose · GitHub Actions · Kubernetes (Minikube) · Terraform',
       links: [
-        { label: 'Certificate ↓', href: 'docs/Cloud_DevOps_Internship_Certificate_Zaid_Muzaffar.pdf', main: true }
+        { label: 'Code ↗', href: 'https://github.com/zaidmuzaffar/SkillSetGo-Cloud-Devops-Internship', main: true }
       ]
     },
     {
@@ -172,7 +174,7 @@ window.SITE = {
     { group: 'WEB, DATA & MOBILE', items: ['JavaScript', 'React', 'Node.js', 'Express', 'Firestore', 'MongoDB', 'REST APIs', 'Flutter'] }
   ],
   certs: [
-    { name: 'Cloud & DevOps Internship — Skill Set Go EduTech', href: 'docs/Cloud_DevOps_Internship_Certificate_Zaid_Muzaffar.pdf', tag: 'PDF ↓' },
+    { name: 'Cloud & DevOps Internship — Skill Set Go EduTech', href: 'docs/Cloud_DevOps_Internship_Certificate_Zaid_Muzaffar.pdf', tag: 'PDF ↓', download: true },
     { name: 'Introduction to DevOps', href: 'https://www.coursera.org/account/accomplishments/verify/ID5UOQ95D0QG' },
     { name: 'Introduction to Cloud Computing', href: 'https://www.coursera.org/account/accomplishments/verify/BLP5F4L1Z822' },
     { name: 'Agile Development and Scrum', href: 'https://www.coursera.org/account/accomplishments/verify/RV1DV08NWGEQ' },
