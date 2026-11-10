@@ -26,6 +26,7 @@
       });
     });
     items.push(
+      { group: 'ACTIONS', label: 'Download CV (PDF)', hint: 'résumé', run: open(base + D.profile.cv) },
       { group: 'ACTIONS', label: 'Copy email address', hint: D.profile.email, run: function () { App.copy(D.profile.email); } },
       { group: 'ACTIONS', label: 'Switch light / dark theme', hint: 'theme', run: function () { App.toggleTheme && App.toggleTheme(); } },
       { group: 'ACTIONS', label: 'Open GitHub', hint: 'github.com/' + D.config.githubUser, run: open(D.profile.github) },

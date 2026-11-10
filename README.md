@@ -43,7 +43,7 @@ Plain **HTML, CSS and JavaScript**. No framework, no build step for the browser,
 | — | Hero | `top` | Name, typed roles, status dial with portrait |
 | 00 | System map | `map` | The site drawn as an architecture diagram — every box links to its section |
 | 01 | About | `about` | Intro, live CI/CD pipeline card, quick facts |
-| 02 | Journey | `journey` | Timeline that fills as you scroll |
+| 02 | Experience | `journey` | Internship card with certificate, then the journey timeline |
 | 03 | Projects | `projects` | Filterable cards with demos, case studies and PDFs |
 | 04 | Stack | `stack` | Skills, certifications (with verify links), languages |
 | 05 | Console | `console` | Interactive terminal, GitHub activity, shortcuts |
@@ -55,6 +55,7 @@ Between sections, an animated **stage connector** shows data packets moving thro
 
 | Feature | How to use / configure |
 |---|---|
+| Download CV | Hero button, Contact section, terminal command `cv`, Ctrl + K. File: `docs/Zaid_Muzaffar_CV.pdf` (public version without phone number) |
 | Command menu | `Ctrl + K` / `⌘ + K` or the search button. Search sections, projects and actions |
 | Light / dark theme | Sun/moon button, terminal command `theme`, or Ctrl + K. The choice is remembered |
 | Interactive terminal | `help`, `whoami`, `skills`, `projects`, `certs`, `contact`, `theme`, `clear` |
@@ -90,6 +91,7 @@ The HTML pages share one head, nav, footer and section connector (`tools/partial
 |---|---|---|---|---|
 | Star Pump House | https://starpumphouse.web.app | https://github.com/zaidmuzaffar/star-pump-house | `demo@starpumphouse.com` / `Star123@` | [Full case study](https://github.com/zaidmuzaffar/star-pump-house/blob/main/docs/Star_Pump_House_Full_Case_Study.pdf) |
 | Vigil | https://vigil-7fa6b.web.app | — | — (mobile app) | `docs/Vigil_Case_Study.pdf` |
+| Skill Go Lab (internship capstone) | — | — | — | `docs/Cloud_DevOps_Internship_Certificate_Zaid_Muzaffar.pdf` (certificate) |
 | "Mac" Voice Assistant | — (runs locally) | — | — | `docs/Voice_Assistant_Case_Study.pdf` |
 | Linux Automation | — | — | — | `docs/Linux_Automation_Case_Study.pdf` |
 | Lawyer–Client Platform (FYP) | — | — | — | `docs/Lawyer_Client_Platform_Case_Study.pdf` |

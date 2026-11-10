@@ -66,7 +66,7 @@
     var D = App.data, e = App.esc, pad = function (s, n) { s = String(s); while (s.length < n) s += ' '; return s; };
     var cmds = {
       help: function () {
-        return 'Available commands:\n' + [['whoami', 'who I am'], ['skills', 'my stack'], ['projects', 'things I have built'], ['certs', 'certifications'], ['contact', 'how to reach me'], ['theme', 'switch light / dark'], ['clear', 'clear the screen']]
+        return 'Available commands:\n' + [['whoami', 'who I am'], ['skills', 'my stack'], ['projects', 'things I have built'], ['certs', 'certifications'], ['contact', 'how to reach me'], ['cv', 'download my CV'], ['theme', 'switch light / dark'], ['clear', 'clear the screen']]
           .map(function (c) { return '  <span class="hl">' + pad(c[0], 10) + '</span>' + c[1]; }).join('\n');
       },
       whoami: function () { return e(D.profile.name + ' — ' + D.profile.role + '.\n' + D.facts[1].v + ', ' + D.facts[2].v + '.\nBased in ' + D.profile.location + '.\nI automate the path from code to production.'); },
@@ -79,6 +79,8 @@
       },
       certs: function () { return e(D.certsIssuer) + ':\n' + D.certs.map(function (c) { return '  ' + e(c.name); }).join('\n'); },
       contact: function () { return 'email     ' + e(D.profile.email) + '\nlinkedin  <a href="' + e(D.profile.linkedin) + '">linkedin.com/in/zaid-muzaffar</a>\ngithub    <a href="' + e(D.profile.github) + '">github.com/' + e(D.config.githubUser) + '</a>'; },
+      cv: function () { return 'CV ready → <a href="' + e(D.profile.cv) + '" download>Zaid_Muzaffar_CV.pdf</a>'; },
+      resume: function () { return cmds.cv(); },
       theme: function () { if (App.toggleTheme) App.toggleTheme(); return 'theme switched to <span class="hl">' + document.documentElement.getAttribute('data-theme') + '</span>'; },
       ls: function () { return 'about.md  journey.log  projects/  stack.yml  certs/  contact.txt'; },
       sudo: function () { return 'Nice try. Permission denied 🙂'; },

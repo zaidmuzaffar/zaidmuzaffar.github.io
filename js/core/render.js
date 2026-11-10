@@ -30,7 +30,7 @@
     /* 00 · System map */
     var counts = {
       about: D.facts.length + ' facts',
-      journey: D.timeline.length + ' stages',
+      journey: (D.experience || []).length + ' internship · ' + D.timeline.length + ' milestones',
       projects: D.projects.length + ' builds',
       stack: D.skills.reduce(function (n, g) { return n + g.items.length; }, 0) + ' tools',
       console: 'interactive',
@@ -57,7 +57,25 @@
       return '<div class="card fact"><small>' + e(f.k) + '</small><b>' + e(f.v) + '</b></div>';
     }).join(''));
 
-    /* 02 · Journey */
+    /* 02 · Experience */
+    put('#experience', (D.experience || []).map(function (x) {
+      return '<article class="card xp reveal">' +
+        '<div class="xp-main">' +
+          '<div class="xp-top"><span class="status live">COMPLETED</span><span class="mono xp-type">' + e(x.type) + '</span></div>' +
+          '<h3 class="xp-role">' + e(x.role) + '</h3>' +
+          '<div class="xp-org">' + e(x.org) + ' <span>· ' + e(x.period) + '</span></div>' +
+          '<p class="xp-sum">' + e(x.summary) + '</p>' +
+          '<ul class="xp-list">' + x.highlights.map(function (h) { return '<li>' + e(h) + '</li>'; }).join('') + '</ul>' +
+          '<div class="chips">' + x.tools.map(function (t) { return '<span class="chip">' + e(t) + '</span>'; }).join('') + '</div>' +
+        '</div>' +
+        '<aside class="xp-side">' +
+          '<div class="xp-stats">' + x.stats.map(function (st) { return '<div><b>' + e(st.n) + '</b><small>' + e(st.k) + '</small></div>'; }).join('') + '</div>' +
+          '<a class="xp-cert" href="' + e(x.certificate) + '"><img src="' + e(x.certificateImage) + '" alt="Certificate of completion: ' + e(x.role) + ', ' + e(x.org) + '" loading="lazy"><span>View certificate (PDF) ↓</span></a>' +
+          '<small class="mono xp-id">' + e(x.id) + '</small>' +
+        '</aside></article>';
+    }).join(''));
+
+    /* 02 · Journey timeline */
     put('#timeline-list', D.timeline.map(function (t) {
       return '<li class="tl-item reveal' + (t.now ? ' now' : '') + '"><span class="tl-when">' + (t.now ? '<span class="dot"></span>' : '') + e(t.when) + '</span>' +
         '<div class="tl-what"><strong>' + e(t.title) + '</strong><span>' + e(t.text) + '</span></div></li>';
@@ -88,7 +106,7 @@
     }).join(''));
     put('#certs-issuer', e(D.certsIssuer));
     put('#certs', D.certs.map(function (c) {
-      return '<a class="cert" href="' + e(c.href) + '">' + e(c.name) + ' <small>verify ↗</small></a>';
+      return '<a class="cert" href="' + e(c.href) + '">' + e(c.name) + ' <small>' + e(c.tag || 'verify ↗') + '</small></a>';
     }).join(''));
     put('#langs', D.languages.map(function (l) {
       return '<div class="lang"><b>' + e(l.name) + '</b><span>' + e(l.level) + '</span></div>';

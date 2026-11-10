@@ -55,8 +55,8 @@
 @keyframes marquee { to { transform: translateX(-50%); } }
 
 /* ---------- Stage connector between sections ---------- */
-.stage-divider { height: 110px; position: relative; margin: 8px 0; }
-.stage-divider svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.stage-divider { height: 110px; position: relative; margin: 8px 0; overflow: hidden; }
+.stage-divider svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; }
 .sd-base { stroke: var(--pipe); }
 .sd-glow { stroke: var(--accent); }
 .sd-core { stroke: var(--accent-2); }

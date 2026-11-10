@@ -37,6 +37,7 @@ INDEX = head('Zaid Muzaffar — Cloud & DevOps Engineer',
       <p class="hero-lead reveal d2">I automate the path from code to production — CI/CD pipelines, containers and cloud infrastructure — and I ship real products along the way: a live business system, an on-device AI safety app and a bilingual voice assistant.</p>
       <div class="hero-actions reveal d3">
         <a href="#projects" class="btn btn-primary">View my projects <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="docs/Zaid_Muzaffar_CV.pdf" class="btn btn-ghost" download>Download CV <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></a>
         <a href="https://www.linkedin.com/in/zaid-muzaffar-57329237a/" class="btn btn-ghost">LinkedIn</a>
         <a href="https://github.com/zaidmuzaffar" class="btn btn-ghost">GitHub</a>
       </div>
@@ -100,11 +101,13 @@ INDEX = head('Zaid Muzaffar — Cloud & DevOps Engineer',
     </div>
   </section>
 
-  ''' + divider('02 · journey', 'checkout ✓', 'build ✓') + '''
+  ''' + divider('02 · experience', 'checkout ✓', 'build ✓') + '''
 
   <!-- ============ 02 · JOURNEY ============ -->
   <section id="journey" class="wrap section">
     <div class="section-head reveal" data-head></div>
+    <div id="experience"></div>
+    <h3 class="sub-head reveal">Journey</h3>
     <div class="timeline">
       <div class="timeline-pipe" aria-hidden="true"><div class="timeline-pipe-fill"></div></div>
       <ol id="timeline-list"></ol>
@@ -148,7 +151,7 @@ INDEX = head('Zaid Muzaffar — Cloud & DevOps Engineer',
           <input id="term-input" type="text" spellcheck="false" placeholder="type help and press Enter">
         </form>
         <div class="term-hints">
-          <button type="button" data-cmd="whoami">whoami</button><button type="button" data-cmd="skills">skills</button><button type="button" data-cmd="projects">projects</button><button type="button" data-cmd="certs">certs</button><button type="button" data-cmd="contact">contact</button><button type="button" data-cmd="clear">clear</button>
+          <button type="button" data-cmd="whoami">whoami</button><button type="button" data-cmd="skills">skills</button><button type="button" data-cmd="projects">projects</button><button type="button" data-cmd="certs">certs</button><button type="button" data-cmd="contact">contact</button><button type="button" data-cmd="cv">cv</button><button type="button" data-cmd="clear">clear</button>
         </div>
       </div>
       <div class="side-stack">
@@ -182,6 +185,7 @@ INDEX = head('Zaid Muzaffar — Cloud & DevOps Engineer',
         <h2>Let's build &amp;<br>ship together.</h2>
         <div class="connect-links">
           <button type="button" class="connect-link" id="copy-email" data-copy=""><span id="contact-email"></span><span aria-hidden="true">copy</span></button>
+          <a class="connect-link" href="docs/Zaid_Muzaffar_CV.pdf" download>Download CV (PDF) <span aria-hidden="true">↓</span></a>
           <a class="connect-link" href="https://www.linkedin.com/in/zaid-muzaffar-57329237a/">LinkedIn <span aria-hidden="true">↗</span></a>
           <a class="connect-link" href="https://github.com/zaidmuzaffar">GitHub · zaidmuzaffar <span aria-hidden="true">↗</span></a>
         </div>
