@@ -5,6 +5,25 @@
    ========================================================= */
 (function () {
   'use strict';
+  /* Laptop / mobile view switch — only offered on phones and small tablets */
+  App.register('view', function (App) {
+    var root = document.documentElement;
+    if (!root.classList.contains('small-device')) return;
+    var laptop = root.classList.contains('laptop-view');
+    App.$$('[data-view-toggle]').forEach(function (b) {
+      b.hidden = false;
+      b.setAttribute('aria-label', laptop ? 'Switch to mobile view' : 'Switch to laptop view');
+      b.innerHTML = laptop
+        ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg><span>Mobile view</span>'
+        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg><span>Laptop view</span>';
+      b.addEventListener('click', function () {
+        App.store.set('zaid-view', laptop ? 'mobile' : 'laptop');
+        window.location.reload();
+      });
+    });
+    App.toggleView = function () { var b = App.$('[data-view-toggle]'); if (b) b.click(); };
+  });
+
   App.register('theme', function (App) {
     var root = document.documentElement;
     var btns = App.$$('[data-theme-toggle]');

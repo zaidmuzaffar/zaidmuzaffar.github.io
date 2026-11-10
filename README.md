@@ -56,6 +56,7 @@ Between sections, an animated **stage connector** shows data packets moving thro
 | Feature | How to use / configure |
 |---|---|
 | Download CV | Hero button, Contact section, terminal command `cv`, Ctrl + K. File: `docs/Zaid_Muzaffar_CV.pdf` (public version without phone number) |
+| Laptop / mobile view | Phones open in a wide 1100px "laptop view". A button in the nav switches to the phone layout and the choice is remembered (`LAPTOP_WIDTH` in `tools/partials.py`) |
 | Command menu | `Ctrl + K` / `⌘ + K` or the search button. Search sections, projects and actions |
 | Light / dark theme | Sun/moon button, terminal command `theme`, or Ctrl + K. The choice is remembered |
 | Interactive terminal | `help`, `whoami`, `skills`, `projects`, `certs`, `contact`, `theme`, `clear` |

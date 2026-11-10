@@ -8,6 +8,14 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
 # Applies the saved theme before first paint (no flash of the wrong theme).
 THEME_BOOT = ("<script>try{var t=localStorage.getItem('zaid-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>")
 
+# Phones open in "laptop view" (a 1100px-wide layout) unless the visitor picked "mobile view".
+LAPTOP_WIDTH = 1100
+VIEW_BOOT = ("<script>(function(){var small=Math.min(screen.width,screen.height)<900,v=null;"
+             "try{v=localStorage.getItem('zaid-view');}catch(e){}"
+             "if(small)document.documentElement.classList.add('small-device');"
+             "if(small&&v!=='mobile'){document.getElementById('vp').setAttribute('content','width=%d');"
+             "document.documentElement.classList.add('laptop-view');}})();</script>" % LAPTOP_WIDTH)
+
 CSS_LAYERS = ['tokens', 'base', 'layout', 'components', 'sections']
 JS_FILES = ['data.js', 'core/app.js', 'core/theme.js', 'core/render.js', 'core/ui.js', 'core/features.js', 'core/palette.js', 'main.js']
 
@@ -18,7 +26,8 @@ def head(title, desc, base='', extra_css=()):
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" id="vp" content="width=device-width, initial-scale=1">
+{VIEW_BOOT}
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <meta property="og:title" content="{title}">
@@ -44,6 +53,7 @@ def nav(base='', links_html='<nav class="nav-links" id="nav-links" aria-label="S
       {links_html}
       <div class="nav-tools">
         <button type="button" class="icon-btn" data-palette aria-label="Search the site (Ctrl + K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span class="kbd-hint">Ctrl K</span></button>
+        <button type="button" class="icon-btn view-btn" data-view-toggle hidden></button>
         <button type="button" class="icon-btn" data-theme-toggle aria-label="Switch theme"></button>
         <a href="{cta_href}" class="nav-cta">ssh zaid →</a>
       </div>
@@ -70,6 +80,7 @@ _glow_id = [0]
 def divider(label, left='build ✓', right='deploy ✓'):
     _glow_id[0] += 1
     gid = f'sdglow{_glow_id[0]}'
+    pw = max(136, len(label) * 8.6 + 36)   # pill grows with the label
     pk = ''.join(
         f'<rect class="packet" x="-7" y="-3.5" width="14" height="7" rx="3.5">'
         f'<animateMotion dur="4.5s" begin="{b}s" repeatCount="indefinite" rotate="auto" path="{PATH}"/></rect>'
@@ -83,8 +94,8 @@ def divider(label, left='build ✓', right='deploy ✓'):
     {pk}
     <g class="sd-node"><circle cx="400" cy="70" r="6" stroke-width="2"/><text x="400" y="98" text-anchor="middle">{left}</text></g>
     <g class="sd-node"><circle cx="1040" cy="70" r="6" stroke-width="2"/><text x="1040" y="98" text-anchor="middle">{right}</text></g>
-    <rect class="sd-pulse" x="652" y="20" width="136" height="28" rx="14" stroke-width="1.5"/>
-    <rect class="sd-pill" x="652" y="20" width="136" height="28" rx="14" stroke-width="1.5"/>
+    <rect class="sd-pulse" x="{720 - pw / 2:.0f}" y="20" width="{pw:.0f}" height="28" rx="14" stroke-width="1.5"/>
+    <rect class="sd-pill" x="{720 - pw / 2:.0f}" y="20" width="{pw:.0f}" height="28" rx="14" stroke-width="1.5"/>
     <text class="sd-label" x="720" y="38.5" text-anchor="middle">{label}</text>
   </svg>
 </div>'''

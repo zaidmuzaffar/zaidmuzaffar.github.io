@@ -4,6 +4,7 @@
    data.js → core/app.js → core/*.js → main.js
    ========================================================= */
 App.start([
+  'view',         // laptop / mobile view on phones
   'theme',        // light / dark
   'render',       // data.js → markup (home page only)
   'preloader',    // boot screen

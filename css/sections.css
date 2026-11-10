@@ -42,7 +42,11 @@ a.sm-node:hover { border-color: var(--accent); transform: translateY(-3px); back
 .sm-legend { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 18px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; color: var(--muted); }
 .sm-legend span { display: inline-flex; align-items: center; gap: 8px; }
 .sm-legend i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); display: inline-block; }
-@media (max-width: 1100px) {
+@media (max-width: 1240px) {
+  .sysmap { grid-template-columns: 120px 40px 160px 40px minmax(0, 1fr) 40px 150px; padding: 24px; }
+  .sm-services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 1040px) {
   .sysmap { grid-template-columns: 1fr; gap: 0; }
   .sm-link { width: 2px; height: 36px; margin: 0 auto; background: repeating-linear-gradient(180deg, var(--accent) 0 8px, transparent 8px 16px); background-size: 2px 32px; animation: smflowv 1s linear infinite; }
   .sm-link::after { right: -4px; top: auto; bottom: -2px; border: 5px solid transparent; border-top-color: var(--accent); border-bottom: none; }

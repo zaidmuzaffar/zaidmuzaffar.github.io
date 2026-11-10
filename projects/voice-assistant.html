@@ -2,7 +2,8 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" id="vp" content="width=device-width, initial-scale=1">
+<script>(function(){var small=Math.min(screen.width,screen.height)<900,v=null;try{v=localStorage.getItem('zaid-view');}catch(e){}if(small)document.documentElement.classList.add('small-device');if(small&&v!=='mobile'){document.getElementById('vp').setAttribute('content','width=1100');document.documentElement.classList.add('laptop-view');}})();</script>
 <title>&quot;Mac&quot; Voice AI Assistant — Case study · Zaid Muzaffar</title>
 <meta name="description" content="An always-on assistant for my MacBook that wakes on its name, talks back in natural Urdu or English, and actually controls the laptop — with spoken confirmation before anything destructive.">
 <meta property="og:title" content="&quot;Mac&quot; Voice AI Assistant — Case study · Zaid Muzaffar">
@@ -30,6 +31,7 @@
       <nav class="nav-links"><a href="../index.html#projects" style="display:inline-block">all projects</a></nav>
       <div class="nav-tools">
         <button type="button" class="icon-btn" data-palette aria-label="Search the site (Ctrl + K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span class="kbd-hint">Ctrl K</span></button>
+        <button type="button" class="icon-btn view-btn" data-view-toggle hidden></button>
         <button type="button" class="icon-btn" data-theme-toggle aria-label="Switch theme"></button>
         <a href="../index.html#contact" class="nav-cta">ssh zaid →</a>
       </div>
