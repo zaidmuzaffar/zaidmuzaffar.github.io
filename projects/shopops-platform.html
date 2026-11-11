@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" id="vp" content="width=device-width, initial-scale=1">
+<script>(function(){var small=Math.min(screen.width,screen.height)<900,v=null;try{v=localStorage.getItem('zaid-view');}catch(e){}if(small)document.documentElement.classList.add('small-device');if(small&&v!=='mobile'){document.getElementById('vp').setAttribute('content','width=1100');document.documentElement.classList.add('laptop-view');}})();</script>
+<title>ShopOps Platform — Case study · Zaid Muzaffar</title>
+<meta name="description" content="A small inventory service taken through the whole path a real team uses to ship software: containers, a CI pipeline with security scanning, infrastructure as code, Kubernetes, GitOps and monitoring. Planned as company ticket PLAT-101 and built phase by phase, on a zero-cost budget.">
+<meta property="og:title" content="ShopOps Platform — Case study · Zaid Muzaffar">
+<meta property="og:description" content="A small inventory service taken through the whole path a real team uses to ship software: containers, a CI pipeline with security scanning, infrastructure as code, Kubernetes, GitOps and monitoring. Planned as company ticket PLAT-101 and built phase by phase, on a zero-cost budget.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#07131A">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem('zaid-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/sections.css">
+<link rel="stylesheet" href="../css/case.css">
+</head>
+<body data-base="../">
+<div class="toast" role="status" aria-live="polite"></div>
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="../index.html#top" class="logo" aria-label="zaid.ops home"><svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle class="logo-ring" cx="17" cy="17" r="15" fill="none" stroke-width="2"/><g class="logo-hand"><path d="M17 6 L17 17 L26 21" fill="none" stroke-width="2.5" stroke-linecap="round"/></g></svg><span class="logo-text">zaid<em>.ops</em></span></a>
+    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px">
+      <nav class="nav-links"><a href="../index.html#projects" style="display:inline-block">all projects</a></nav>
+      <div class="nav-tools">
+        <button type="button" class="icon-btn" data-palette aria-label="Search the site (Ctrl + K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span class="kbd-hint">Ctrl K</span></button>
+        <button type="button" class="icon-btn view-btn" data-view-toggle hidden></button>
+        <button type="button" class="icon-btn" data-theme-toggle aria-label="Switch theme"></button>
+        <a href="../index.html#contact" class="nav-cta">ssh zaid →</a>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+
+<section class="wrap case-hero">
+  <a class="back" href="../index.html#projects">← all projects</a>
+  <span class="label"><span class="dot"></span>CASE STUDY 01 · CLOUD &amp; DEVOPS · IN BUILD</span>
+  <h1 class="reveal">ShopOps Platform<br><span style="color:var(--accent)">From laptop to production, the DevOps way</span></h1>
+  <p class="lead reveal d1">A small inventory service taken through the whole path a real team uses to ship software: containers, a CI pipeline with security scanning, infrastructure as code, Kubernetes, GitOps and monitoring. Planned as company ticket PLAT-101 and built phase by phase, on a zero-cost budget.</p>
+  <div class="meta reveal d2"><div><small>ROLE</small><b>Sole engineer: app, containers, pipeline, infrastructure</b></div><div><small>TICKET</small><b>PLAT-101 · 8 phases</b></div><div><small>DONE</small><b>Phase 0 → 2: app, Docker, CI</b></div><div><small>NEXT</small><b>Terraform · k3d · Argo CD · Prometheus</b></div><div><small>BUDGET</small><b>$0 — free tools and free tiers only</b></div></div>
+  
+  <div class="case-links reveal d3"><a class="btn btn-primary" href="https://github.com/zaidmuzaffar/shopops-platform">Source code ↗</a><a class="btn btn-ghost" href="https://github.com/zaidmuzaffar/shopops-platform/actions">Pipeline runs ↗</a><a class="btn btn-ghost" href="https://github.com/zaidmuzaffar/shopops-platform/pull/1">CI pull request ↗</a></div>
+</section>
+<div class="stage-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 110" preserveAspectRatio="xMidYMid slice">
+    <defs><filter id="sdglow1" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="4"/></filter></defs>
+    <path class="sd-base" d="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440" fill="none" stroke-width="2"/>
+    <path class="comet sd-glow" d="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440" pathLength="1000" fill="none" stroke-width="6" stroke-linecap="round" filter="url(#sdglow1)" opacity=".55"/>
+    <path class="comet sd-core" d="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440" pathLength="1000" fill="none" stroke-width="2" stroke-linecap="round"/>
+    <rect class="packet" x="-7" y="-3.5" width="14" height="7" rx="3.5"><animateMotion dur="4.5s" begin="0s" repeatCount="indefinite" rotate="auto" path="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440"/></rect><rect class="packet" x="-7" y="-3.5" width="14" height="7" rx="3.5"><animateMotion dur="4.5s" begin="1.5s" repeatCount="indefinite" rotate="auto" path="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440"/></rect><rect class="packet" x="-7" y="-3.5" width="14" height="7" rx="3.5"><animateMotion dur="4.5s" begin="3s" repeatCount="indefinite" rotate="auto" path="M0 70 H520 C570 70 570 34 620 34 H820 C870 34 870 70 920 70 H1440"/></rect>
+    <g class="sd-node"><circle cx="400" cy="70" r="6" stroke-width="2"/><text x="400" y="98" text-anchor="middle">plan ✓</text></g>
+    <g class="sd-node"><circle cx="1040" cy="70" r="6" stroke-width="2"/><text x="1040" y="98" text-anchor="middle">ship ✓</text></g>
+    <rect class="sd-pulse" x="652" y="20" width="136" height="28" rx="14" stroke-width="1.5"/>
+    <rect class="sd-pill" x="652" y="20" width="136" height="28" rx="14" stroke-width="1.5"/>
+    <text class="sd-label" x="720" y="38.5" text-anchor="middle">case study</text>
+  </svg>
+</div>
+<div class="wrap case-body">
+  <nav class="toc" aria-label="On this page"><a href="#brief">01 the brief</a><a href="#architecture">02 architecture today</a><a href="#phases">03 roadmap</a><a href="#containers">04 phase 1 — containers</a><a href="#pipeline">05 phase 2 — ci pipeline</a><a href="#incidents">06 what went wrong, and how i fixed it</a><a href="#decisions">07 key decisions</a><a href="#learned">08 what i have learned so far</a><a href="#docs">09 documentation</a></nav>
+  <div class="case-content">
+    <section id="brief" class="reveal"><h2><span class="num">01 / the brief</span>The brief</h2>
+<p>I wrote the project the way a platform team receives work: a ticket with a goal, constraints and a definition of done.</p>
+<div class="callout brass"><span class="mono">PLAT-101</span><p>Take the shop inventory service from "runs on my laptop" to a reproducible, tested, scanned and observable deployment. Every change goes through a pull request and a pipeline. Secrets never enter Git. <strong>Total cost: zero</strong> — local clusters and free tiers only, with a short, budget-capped cloud deploy at the end that is torn down with <code>terraform destroy</code>.</p></div>
+<p>The application is deliberately small — a REST API for products with a web front end — so the attention goes to how it is built, shipped and run.</p></section><section id="architecture" class="reveal"><h2><span class="num">02 / architecture today</span>Architecture today</h2><div class="flow-diagram"><div class="flow-node"><b>Browser</b><span>localhost:8080</span></div><div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 14"><path class="flow" d="M0 7 H30" stroke="currentColor" stroke-width="3" fill="none"/><path d="M26 2 L33 7 L26 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><div class="flow-node"><b>web · Nginx</b><span>Static UI, proxies /api — the only exposed port</span></div><div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 14"><path class="flow" d="M0 7 H30" stroke="currentColor" stroke-width="3" fill="none"/><path d="M26 2 L33 7 L26 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><div class="flow-node"><b>api · Node.js</b><span>REST API, health and readiness checks</span></div><div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 14"><path class="flow" d="M0 7 H30" stroke="currentColor" stroke-width="3" fill="none"/><path d="M26 2 L33 7 L26 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><div class="flow-node"><b>db · PostgreSQL 16</b><span>Named volume, no published port</span></div></div>
+<p>All three containers share a private Compose network and find each other by service name (<code>api:3000</code>, <code>db:5432</code>). Only the web container publishes a port, so the API and database are not reachable from outside.</p></section><section id="phases" class="reveal"><h2><span class="num">03 / roadmap</span>Roadmap</h2><div class="table-box"><table><thead><tr><th>Phase</th><th>What it delivers</th><th>Status</th></tr></thead><tbody><tr><td>0 · Application</td><td>Node.js API with 12-factor config, liveness and readiness endpoints, graceful SIGTERM shutdown, JSON logs, 6 automated tests</td><td>✅ Done</td></tr><tr><td>1 · Containers</td><td>Multi-stage Dockerfiles, non-root users, read-only filesystem, Compose stack with healthchecks and an isolated database</td><td>✅ Done</td></tr><tr><td>2 · CI pipeline</td><td>GitHub Actions: test → build → Trivy scan → push to GHCR, least-privilege permissions</td><td>✅ Done</td></tr><tr><td>3 · Infrastructure as code</td><td>Terraform for free AWS resources: VPC, IAM, GitHub OIDC (no stored keys), budget alerts</td><td>Next</td></tr><tr><td>4 · Kubernetes</td><td>k3d cluster, Helm chart, probes, resource limits, autoscaling</td><td>Planned</td></tr><tr><td>5 · GitOps</td><td>Argo CD syncs the cluster from Git</td><td>Planned</td></tr><tr><td>6 · Observability</td><td>Prometheus metrics and Grafana dashboards, alerts</td><td>Planned</td></tr><tr><td>7 · Hardening</td><td>TLS, secret management, database backups, k6 load tests</td><td>Planned</td></tr><tr><td>8 · Operations</td><td>Runbook, postmortem and final documentation</td><td>Planned</td></tr></tbody></table></div></section><section id="containers" class="reveal"><h2><span class="num">04 / phase 1 — containers</span>Phase 1 — Containers</h2><div class="feature-grid"><div class="feature"><b>Multi-stage build</b><span>Separate stages install dependencies, run the tests and build a small runtime image that holds only what the app needs.</span></div><div class="feature"><b>Layer caching</b><span>Dependency files are copied before the source, so <code>npm ci</code> only re-runs when dependencies change.</span></div><div class="feature"><b>Non-root</b><span>The API runs as the <code>node</code> user and the web server as an unprivileged Nginx user — checked with <code>whoami</code>.</span></div><div class="feature"><b>Locked-down runtime</b><span>Read-only filesystem, <code>no-new-privileges</code>, a tmpfs for <code>/tmp</code> and an init process for clean signal handling.</span></div><div class="feature"><b>Healthchecks</b><span>The API waits for Postgres to be <em>healthy</em>, not just started, and the web waits for the API.</span></div><div class="feature"><b>Secrets out of Git</b><span>The database password lives in a git-ignored <code>.env</code>; Compose refuses to start without it.</span></div></div></section><section id="pipeline" class="reveal"><h2><span class="num">05 / phase 2 — ci pipeline</span>Phase 2 — CI pipeline</h2><div class="flow-diagram"><div class="flow-node"><b>Pull request</b><span>Every change</span></div><div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 14"><path class="flow" d="M0 7 H30" stroke="currentColor" stroke-width="3" fill="none"/><path d="M26 2 L33 7 L26 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><div class="flow-node"><b>Test</b><span>npm ci · node --test</span></div><div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 14"><path class="flow" d="M0 7 H30" stroke="currentColor" stroke-width="3" fill="none"/><path d="M26 2 L33 7 L26 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><div class="flow-node"><b>Build</b><span>api + web in parallel, cached</span></div><div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 14"><path class="flow" d="M0 7 H30" stroke="currentColor" stroke-width="3" fill="none"/><path d="M26 2 L33 7 L26 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><div class="flow-node"><b>Trivy scan</b><span>Fail on fixable HIGH / CRITICAL</span></div><div class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 36 14"><path class="flow" d="M0 7 H30" stroke="currentColor" stroke-width="3" fill="none"/><path d="M26 2 L33 7 L26 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><div class="flow-node"><b>GHCR</b><span>Push on main only</span></div></div>
+<ul><li><strong>Least privilege:</strong> the workflow can only read the repository; the build job alone gets permission to write packages.</li>
+<li><strong>No pushes from pull requests:</strong> images are published only from <code>main</code>, so untrusted code can never reach the registry.</li>
+<li><strong>Pinned scanner:</strong> Trivy is pinned to versions known to be safe after the March 2026 supply-chain attack on its GitHub Action, when release tags were overwritten with credential-stealing code.</li></ul></section><section id="incidents" class="reveal"><h2><span class="num">06 / what went wrong, and how i fixed it</span>What went wrong, and how I fixed it</h2>
+<h3>The scanner blocked my first pull request</h3>
+<p>Both image builds failed on the first run. Reading the logs showed Trivy had found <strong>high-severity vulnerabilities in zlib</strong> inside the base images — including buffer-overflow bugs that allow code execution — with fixed versions already available. The images were simply built on stale base layers.</p>
+<p>The fix: upgrade OS packages during the build, move Nginx to the maintained stable image, and remove <code>npm</code> and <code>corepack</code> from the API runtime image, since the running app never uses them and they carry their own dependencies. The second run passed all three checks. This is exactly the job of a pipeline: the problem was caught before merge, not in production.</p>
+<h3>Data that disappeared after a restart</h3>
+<p>In Phase 0 the app lost its products on restart because it was running with the in-memory store. Pointing it at PostgreSQL fixed it, and Phase 1 moved the data into a named Docker volume so it survives <code>docker compose down</code> — tested by deleting every container and checking the data was still there.</p>
+<h3>Source files deleted by a folder copy</h3>
+<p>Copying new files over the project in Finder replaced whole folders and deleted the application source. <code>git status</code> showed exactly what was missing and <code>git restore</code> brought it back in seconds — and since then new files go in through the command line.</p></section><section id="decisions" class="reveal"><h2><span class="num">07 / key decisions</span>Key decisions</h2><div class="table-box"><table><thead><tr><th>Decision</th><th>Why</th></tr></thead><tbody><tr><td>Plain <code>node:http</code>, one dependency (<code>pg</code>)</td><td>A small dependency tree is less to patch and less for a scanner to flag.</td></tr><tr><td>Readiness separate from liveness</td><td>"The process is up" and "it can serve traffic" are different questions; Kubernetes will need both.</td></tr><tr><td>Only the web container publishes a port</td><td>Smaller attack surface; the database is never reachable from outside.</td></tr><tr><td>Fail the pipeline only on fixable vulnerabilities</td><td>Blocks real, actionable risk without failing on issues nobody can fix yet.</td></tr><tr><td>Local Kubernetes (k3d) instead of EKS</td><td>Same skills, zero cost; the cloud is used briefly at the end, behind budget alerts.</td></tr><tr><td>GitHub OIDC instead of stored AWS keys (Phase 3)</td><td>Short-lived credentials; nothing long-lived to leak from the repository.</td></tr></tbody></table></div></section><section id="learned" class="reveal"><h2><span class="num">08 / what i have learned so far</span>What I have learned so far</h2>
+<ul><li>"Started" is not "ready" — healthchecks and readiness are what make a system start reliably.</li>
+<li>A container image is only as secure as its base layers; scanning has to run on every change.</li>
+<li>Reading logs is the first step of every fix.</li>
+<li>Git is the safety net that turns a scary mistake into a one-line recovery.</li></ul></section><section id="docs" class="reveal"><h2><span class="num">09 / documentation</span>Documentation</h2>
+<h3>Run it locally</h3>
+<ol><li>Clone <code>github.com/zaidmuzaffar/shopops-platform</code> and install Docker.</li>
+<li>Create the secret file: <code>echo "POSTGRES_PASSWORD=yourpassword" &gt; .env</code> (letters and numbers only).</li>
+<li>Start the stack: <code>docker compose up -d --build</code>, then <code>docker compose ps</code> until all three services are healthy.</li>
+<li>Open <code>http://localhost:8080</code>.</li></ol>
+<h3>Repository layout</h3>
+<p><code>app/api</code> — Node.js service, tests and Dockerfile. <code>app/web</code> — UI, Nginx config and Dockerfile. <code>compose.yaml</code> — the local stack. <code>.github/workflows</code> — the CI pipeline. <code>infra/</code> and <code>k8s/</code> — Terraform and Kubernetes (upcoming phases). <code>docs/</code> — notes for each phase.</p></section>
+    <a class="next-case" href="star-pump-house.html"><span><small>next case study</small><b>Star Pump House — Shop Management System</b></span><span aria-hidden="true" style="font-size:28px;color:var(--accent)">→</span></a>
+  </div>
+</div>
+</main>
+<footer class="wrap footer">
+  <span>© <span data-year>2026</span> Zaid Muzaffar</span>
+  <span><a href="../index.html#map">system map</a> · <a href="https://github.com/zaidmuzaffar">github</a> · build: passing · status: 200 OK</span>
+</footer>
+<script src="../js/data.js"></script>
+<script src="../js/core/app.js"></script>
+<script src="../js/core/theme.js"></script>
+<script src="../js/core/render.js"></script>
+<script src="../js/core/ui.js"></script>
+<script src="../js/core/features.js"></script>
+<script src="../js/core/palette.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

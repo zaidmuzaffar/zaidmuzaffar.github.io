@@ -96,6 +96,17 @@ window.SITE = {
   ],
   projects: [
     {
+      title: 'ShopOps Platform — Production DevOps Pipeline', status: 'build', statusText: 'IN BUILD · 2/8', cats: ['cloud'],
+      desc: 'A DevOps project run like real company work (ticket PLAT-101): an inventory API and PostgreSQL taken from laptop to production in eight phases. Done so far: hardened Docker images, a Compose stack with healthchecks, and a GitHub Actions pipeline that tests, builds, scans with Trivy and pushes to GHCR. The scanner caught real CVEs, which I patched before merge.',
+
+      stack: 'Node.js · PostgreSQL · Docker · Compose · GitHub Actions · Trivy · GHCR — next: Terraform · k3d · Helm · Argo CD · Prometheus',
+      links: [
+        { label: 'Case study →', href: 'projects/shopops-platform.html', main: true },
+        { label: 'Code ↗', href: 'https://github.com/zaidmuzaffar/shopops-platform' },
+        { label: 'Pipeline runs ↗', href: 'https://github.com/zaidmuzaffar/shopops-platform/actions' }
+      ]
+    },
+    {
       title: 'Star Pump House — Shop Management System', status: 'live', statusText: 'LIVE', cats: ['web', 'cloud', 'ai'],
       desc: 'The system a family hardware shop runs on every day: stock in units and feet, cash/credit sales, supplier and wholesale accounts, daily cash closing, profit reports, salesman logins and an AI assistant that answers in English or Roman Urdu.',
       stack: 'JavaScript · Firebase Auth · Firestore · Hosting · Gemini · App Check',
@@ -166,12 +177,12 @@ window.SITE = {
 
   /* ---------- Stack ---------- */
   skills: [
-    { group: 'CI/CD & AUTOMATION', items: ['CI/CD pipelines', 'GitHub Actions', 'Git & GitHub', 'Bash / shell scripting', 'Agile / Scrum', 'Zenhub'] },
+    { group: 'CI/CD & AUTOMATION', items: ['CI/CD pipelines', 'GitHub Actions', 'Trivy image scanning', 'GHCR', 'Git & GitHub', 'Bash / shell scripting', 'Agile / Scrum', 'Zenhub'] },
     { group: 'CONTAINERS & IaC', items: ['Docker', 'Containers', 'Docker Compose', 'Kubernetes', 'Minikube', 'kubectl', 'ConfigMaps & Secrets', 'Terraform'] },
     { group: 'CLOUD (AWS)', items: ['IAM', 'VPC', 'S3', 'EC2', 'Route 53', 'Load Balancing & Auto Scaling'] },
     { group: 'SYSTEMS & NETWORKING', items: ['Linux administration', 'Networking (subnets, routing, DNS)', 'Firebase Hosting'] },
     { group: 'AI / ML', items: ['Python', 'TensorFlow Lite', 'Google Colab', 'Gemini API', 'Ollama'] },
-    { group: 'WEB, DATA & MOBILE', items: ['JavaScript', 'React', 'Node.js', 'Express', 'Firestore', 'MongoDB', 'REST APIs', 'Flutter'] }
+    { group: 'WEB, DATA & MOBILE', items: ['JavaScript', 'React', 'Node.js', 'Express', 'Firestore', 'PostgreSQL', 'MongoDB', 'REST APIs', 'Flutter'] }
   ],
   certs: [
     { name: 'Cloud & DevOps Internship — Skill Set Go EduTech', href: 'docs/Cloud_DevOps_Internship_Certificate_Zaid_Muzaffar.pdf', tag: 'PDF ↓', download: true },
