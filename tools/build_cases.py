@@ -75,13 +75,167 @@ def btn(href, text, main=False):
     return f'<a class="btn {"btn-primary" if main else "btn-ghost"}" href="{href}">{text}</a>'
 
 
+
+# =====================================================================
+# 0. SHOPOPS PLATFORM
+# =====================================================================
+REPO = 'https://github.com/zaidmuzaffar/shopops-platform'
+SHOPOPS = dict(
+    file='shopops-platform.html',
+    title='ShopOps Platform',
+    kicker='CASE STUDY 01 · CLOUD &amp; DEVOPS · IN BUILD · 6/8',
+    h1='ShopOps Platform<br><span style="color:var(--accent)">From laptop to production, the DevOps way</span>',
+    lead='A small inventory service taken through the whole path a real team uses to ship software: containers, a CI pipeline with security scanning, infrastructure as code, Kubernetes, GitOps and monitoring. Planned as company ticket PLAT-101 and built phase by phase on a zero-cost budget. Six of the eight phases are done.',
+    meta=[('ROLE', 'Sole engineer: app, containers, pipeline, infrastructure'), ('TICKET', 'PLAT-101 · 8 phases'),
+          ('DONE', 'Phase 0 → 6: app, Docker, CI, Terraform, Kubernetes, GitOps, monitoring'),
+          ('NEXT', 'TLS · backups · k6 load tests · runbook'), ('BUDGET', '$0 — free tools and free tiers only')],
+    links=[btn(REPO, 'Source code ↗', True), btn(REPO + '/actions', 'Pipeline runs ↗'),
+           btn(REPO + '/tree/main/k8s/helm/shopops', 'Helm chart ↗'), btn(REPO + '/tree/main/infra', 'Terraform ↗')],
+    next=('star-pump-house.html', 'Star Pump House — Shop Management System'),
+    sections=[
+        ('brief', 'The brief', '''
+<p>I wrote the project the way a platform team receives work: a ticket with a goal, constraints and a definition of done.</p>
+<div class="callout brass"><span class="mono">PLAT-101</span><p>Take the shop inventory service from "runs on my laptop" to a reproducible, tested, scanned and observable deployment. Every change goes through a pull request and a pipeline. Secrets never enter Git. <strong>Total cost: zero</strong> — local clusters and free tiers only, with a short, budget-capped cloud deploy at the end that is torn down with <code>terraform destroy</code>.</p></div>
+<p>The application is deliberately small — a REST API for products with a web front end — so the attention goes to how it is built, shipped and run.</p>'''),
+        ('architecture', 'Architecture', flow([
+            ('Browser', 'localhost:8081'),
+            ('Ingress · Traefik', 'The only way in'),
+            ('web · Nginx', '3 pods · static UI, proxies /api'),
+            ('api · Node.js', '2–5 pods · scales on CPU'),
+            ('PostgreSQL 16', 'StatefulSet + volume'),
+        ]) + '''
+<p>The stack runs on a local Kubernetes cluster: k3d, with one server and one agent node inside Docker. Only the ingress is reachable from outside; the API and the database are internal services that find each other by name. Prometheus collects the API's metrics every 30 seconds and Grafana turns them into the dashboard shown in Phase 6.</p>
+<h3>How a change reaches the cluster</h3>''' + flow([
+            ('Pull request', 'Code, chart or config'),
+            ('CI checks', 'Tests · build · Trivy · Terraform plan'),
+            ('Merge', 'Only after the checks pass'),
+            ('Argo CD', 'Syncs the Helm chart from main'),
+            ('Cluster', 'Matches Git'),
+        ]) + '''
+<p>Nobody runs <code>kubectl apply</code> or <code>helm upgrade</code> by hand. In this local setup the images are built on my machine and loaded into the cluster; the production values point at the images the pipeline publishes to GHCR.</p>'''),
+        ('phases', 'Roadmap', table(
+            ['Phase', 'What it delivers', 'Status'],
+            [['0 · Application', 'Node.js API with 12-factor config, liveness and readiness endpoints, graceful SIGTERM shutdown, JSON logs, automated tests', '✅ Done'],
+             ['1 · Containers', 'Multi-stage Dockerfiles, non-root users, read-only filesystem, Compose stack with healthchecks and an isolated database', '✅ Done'],
+             ['2 · CI pipeline', 'GitHub Actions: test → build → Trivy scan → push to GHCR, least-privilege permissions', '✅ Done'],
+             ['3 · Infrastructure as code', 'Terraform on AWS: budget alerts, a two-zone VPC, tiered security groups, remote state with locking, GitHub OIDC with no stored keys', '✅ Done'],
+             ['4 · Kubernetes', 'k3d cluster, Helm chart with dev and prod values, probes, resource limits, autoscaling, disruption budgets', '✅ Done'],
+             ['5 · GitOps', 'Argo CD deploys the chart from Git with automatic sync, pruning and self-healing', '✅ Done'],
+             ['6 · Observability', 'Prometheus metrics from the API, a Grafana dashboard and three alert rules', '✅ Done'],
+             ['7 · Hardening', 'TLS, secret management, database backups, k6 load tests', 'Next'],
+             ['8 · Operations', 'Runbook, game day, postmortem and final documentation', 'Planned']])),
+        ('containers', 'Phase 1 — Containers', features([
+            ('Multi-stage build', 'Separate stages install dependencies, run the tests and build a small runtime image that holds only what the app needs.'),
+            ('Layer caching', 'Dependency files are copied before the source, so <code>npm ci</code> only re-runs when dependencies change.'),
+            ('Non-root', 'The API runs as the <code>node</code> user and the web server as an unprivileged Nginx user — checked with <code>whoami</code>.'),
+            ('Locked-down runtime', 'Read-only filesystem, <code>no-new-privileges</code>, a tmpfs for <code>/tmp</code> and an init process for clean signal handling.'),
+            ('Healthchecks', 'The API waits for Postgres to be <em>healthy</em>, not just started, and the web waits for the API.'),
+            ('Secrets out of Git', 'The database password lives in a git-ignored <code>.env</code>; Compose refuses to start without it.'),
+        ])),
+        ('pipeline', 'Phase 2 — CI pipeline', flow([
+            ('Pull request', 'Every change'),
+            ('Test', 'npm ci · node --test'),
+            ('Build', 'api + web in parallel, cached'),
+            ('Trivy scan', 'Fail on fixable HIGH / CRITICAL'),
+            ('GHCR', 'Push on main only'),
+        ]) + '''
+<ul><li><strong>Least privilege:</strong> the workflow can only read the repository; the build job alone gets permission to write packages.</li>
+<li><strong>No pushes from pull requests:</strong> images are published only from <code>main</code>, so untrusted code can never reach the registry.</li>
+<li><strong>Pinned scanner:</strong> Trivy is pinned to versions known to be safe after the March 2026 supply-chain attack on its GitHub Action, when release tags were overwritten with credential-stealing code.</li></ul>'''),
+        ('terraform', 'Phase 3 — Infrastructure as code', '''
+<p>The AWS side is written in Terraform and reviewed as a plan before anything is applied. This phase builds only what costs nothing to keep: no servers, no NAT gateway, no load balancer, no managed Kubernetes. Those wait for one short, budget-capped week at the end.</p>''' + features([
+            ('Budget alerts', 'Email at $1 and $5 of real spend, and when the forecast passes the monthly limit. They count spend <em>before</em> credits: with credits applied the bill reads $0 and the alerts would never fire.'),
+            ('Network without a NAT gateway', 'A VPC across two availability zones with public and private subnets. The private subnets have no route to the internet, so no NAT gateway is needed; one would cost over $30 a month even when idle.'),
+            ('Tiered security groups', 'Internet → web on 80/443, web → API on 3000, API → database on 5432, and nothing else. Each rule points at the security group in front of it, not at IP ranges.'),
+            ('Remote state with locking', "State lives in an S3 bucket that is versioned, encrypted, closed to the public and protected by <code>prevent_destroy</code>. S3's native lock file stops two runs from changing it at once."),
+            ('No stored AWS keys', "GitHub Actions gets short-lived credentials through OIDC. The role trusts only this repository's <code>main</code> branch and its pull requests, can read the account, and can write only the state bucket."),
+            ('Plan on every pull request', 'The pipeline runs <code>terraform fmt</code>, <code>validate</code> and <code>plan</code>, so an infrastructure change is reviewed like code. Locally I only apply saved plans.'),
+        ])),
+        ('kubernetes', 'Phase 4 — Kubernetes', '''
+<p>The three services moved from Compose to a local Kubernetes cluster: first as plain manifests with Kustomize, then as a Helm chart. I tested the basics by hand: deleted pods and watched Kubernetes replace them, and ran a load test to watch the autoscaler react.</p>''' + features([
+            ('Local cluster, zero cost', 'k3d runs a real k3s cluster in Docker. Images are loaded with <code>k3d image import</code>, so no registry is needed.'),
+            ('Health probes', 'Liveness restarts an API pod that hangs; readiness keeps a pod out of traffic until it can serve. Both use the endpoints built in Phase 0.'),
+            ('Limits and locked-down pods', 'Every container declares the CPU and memory it needs and may use. API and web run as non-root with every Linux capability dropped; the API also has a read-only filesystem.'),
+            ('Database with a volume', 'PostgreSQL runs as a StatefulSet on a persistent volume, with its password in a Secret created outside Git. The existing products were moved over with <code>pg_dump</code>.'),
+            ('Autoscaling', 'The API runs 2 to 5 pods, targeting 60% CPU. Under the load test it scaled to 5, then back to 2 when the load stopped. Disruption budgets keep at least one API and one web pod up during maintenance.'),
+            ('Helm chart', 'One chart, two values files. Development uses local images and small limits; production uses the GHCR images, 3–10 API pods and a 10 GB volume. Upgrades and rollbacks are one command each.'),
+        ])),
+        ('gitops', 'Phase 5 — GitOps', '''
+<p>Argo CD runs inside the cluster and watches the Helm chart on the <code>main</code> branch. From this phase on, Git is the single source of truth: the cluster changes only when a pull request is merged.</p>
+<ul><li><strong>Automatic sync:</strong> a merged change reaches the cluster within about three minutes, the interval at which Argo CD checks Git.</li>
+<li><strong>Prune:</strong> a resource deleted from Git is deleted from the cluster too, so nothing is left running by accident.</li>
+<li><strong>Self-heal:</strong> a change made directly with <code>kubectl</code> is reverted to what Git says.</li>
+<li><strong>First change through GitOps:</strong> scaling the web tier to three pods was a one-line pull request; after the merge Argo CD rolled it out without a single manual command.</li>
+<li><strong>Rollback:</strong> reverting the commit is the rollback, through the same reviewed path as any other change.</li></ul>'''),
+        ('monitoring', 'Phase 6 — Monitoring', '''
+<p>The API now reports its own health in numbers. I wrote the <code>/metrics</code> endpoint by hand in the Prometheus text format, in under a hundred lines and with no new dependency. The monitoring stack (Prometheus and Grafana, from the kube-prometheus-stack chart) collects it every 30 seconds.</p>''' + features([
+            ('RED metrics', 'Rate, errors and duration: requests counted by method, route and status, plus a latency histogram. Memory, CPU and the running version of every pod come with them.'),
+            ('Few, fixed labels', 'Product IDs are grouped under <code>/api/products/:id</code> and health checks are not counted, so the number of time series stays the same however many products exist.'),
+            ('Monitoring as code', 'The scrape target, the alert rules and the dashboard ship inside the Helm chart, so Argo CD deploys them with the app. Nothing is set up by clicking in a UI.'),
+            ('Three alerts', 'API unreachable for 2 minutes · more than 5% of requests failing for 5 minutes · p95 latency above 500 ms for 10 minutes.'),
+            ('Tested', 'Five new tests check the output format, the counting and the route grouping. With the earlier ones that makes eleven, and they now also run inside the image build.'),
+            ('Light enough for a laptop', 'Prometheus keeps two days of data and Alertmanager is off until there is a notification channel, so the whole stack runs next to the app.'),
+        ]) + '''
+<figure class="shot"><img src="../assets/shopops/grafana-dashboard.jpg" alt="Grafana dashboard for the ShopOps API with request rate, error rate, p95 latency, running version, requests by route and status code, latency percentiles and the number of API pods" loading="lazy"><figcaption>Grafana: the API dashboard during a test. 0% errors, p95 under 5 ms, and the autoscaler adding a third pod during a burst at 14:03.</figcaption></figure>
+<figure class="shot"><img src="../assets/shopops/alert-rules.jpg" alt="Grafana alert list showing the three ShopOps alert rules, all in the Normal state" loading="lazy"><figcaption>The three alert rules, loaded from the Helm chart, all Normal.</figcaption></figure>
+<h3>What the dashboard taught me</h3>
+<p>During that burst the requests graph peaked below 3 per second, yet the autoscaler still added a pod. A two-minute <code>rate()</code> spreads a short burst across the whole window, while the autoscaler checks CPU every 15 seconds. Latency told the same story: at 14:10 the median stayed near 2.5 ms while p99 jumped to 21 ms. Averages hide exactly the moments you need to see.</p>'''),
+        ('incidents', 'What went wrong, and how I fixed it', '''
+<h3>The scanner blocked my first pull request</h3>
+<p>Both image builds failed on the first pipeline run: Trivy found <strong>high-severity vulnerabilities in zlib</strong> inside the base images, with fixed versions already available. I upgraded OS packages during the build, moved Nginx to the maintained stable image and removed <code>npm</code> and <code>corepack</code> from the API runtime image, which the running app never uses. The next run passed. The problem was caught before merge, not in production.</p>
+<h3>The pipeline was locked out of AWS</h3>
+<p>Once the OIDC role existed, the Terraform job failed with <code>AccessDenied</code>. The trust policy looked right, so instead of guessing I opened CloudTrail and read what AWS had actually received. GitHub identified the repository by its <strong>immutable owner and repository IDs</strong> (<code>repo:owner@id/name@id</code>), not the plain name my policy expected. After I matched that format the job passed. A bonus: a deleted and recreated repository with the same name cannot use the role.</p>
+<h3>Tests that never ran</h3>
+<p>Since Phase 1 the Dockerfile had a test stage, and I believed a failing test would stop the image build. In Phase 6 I found it never ran: BuildKit only builds the stages the final image depends on, and nothing depended on the test stage, so it was silently skipped. Now the runtime stage copies one file from the test stage, which forces the tests to run. The first real run failed straight away on a test that needs the web folder, which is not part of the API image; that test is skipped inside the build and still runs in CI.</p>
+<h3>A database restart hidden in the chart</h3>
+<p>While bumping the chart version I noticed that every pod template carried the chart's version labels. A new label means a new pod template, and a new template means new pods, so every release would have restarted PostgreSQL for no reason. The database and web pods now carry only stable labels.</p>
+<h3>My load generator ran out of ports</h3>
+<p>To test the autoscaler I fired requests in a tight loop from a busybox pod. After a while every request failed with <em>Cannot assign requested address</em>: a closed connection keeps its local port reserved for a while, and the loop used them up faster than they came back. A short pause between requests fixed it; a proper load-testing tool, k6, is part of Phase 7.</p>'''),
+        ('decisions', 'Key decisions', table(
+            ['Decision', 'Why'],
+            [['Plain <code>node:http</code>, one dependency (<code>pg</code>)', 'A small dependency tree is less to patch and less for a scanner to flag.'],
+             ['Metrics written by hand, not with a client library', 'The Prometheus text format is simple. Writing it kept the dependency count at one and taught me what each number means.'],
+             ['Readiness separate from liveness', '"The process is up" and "it can serve traffic" are different questions, and Kubernetes acts on each one differently.'],
+             ['Only the ingress is exposed', 'The API and the database are internal services; the database is never reachable from outside.'],
+             ['Fail the pipeline only on fixable vulnerabilities', 'Blocks real, actionable risk without failing on issues nobody can fix yet.'],
+             ['GitHub OIDC instead of stored AWS keys', 'Short-lived credentials; nothing long-lived to leak from the repository.'],
+             ['No NAT gateway', "The private subnets don't need the internet yet, and a NAT gateway is billed for every hour it exists."],
+             ['Local Kubernetes (k3d) instead of EKS', 'Same skills, zero cost; the cloud is used briefly at the end, behind budget alerts.'],
+             ['The cluster changes only through Git (Argo CD)', 'Every change is reviewed, recorded in history and reversible with a revert.'],
+             ['Dashboards and alerts inside the Helm chart', 'They are versioned and reviewed like code, and deployed together with the app they watch.']])),
+        ('learned', 'What I have learned so far', '''
+<ul><li>"Started" is not "ready" — healthchecks and readiness are what make a system start reliably.</li>
+<li>A container image is only as secure as its base layers; scanning has to run on every change.</li>
+<li>Check that the safety net works: a test stage that silently never runs is worse than none.</li>
+<li>When access is denied, read the audit log before changing policies. CloudTrail showed exactly what AWS received.</li>
+<li>Averages hide the moments that matter; look at short windows and at p95 and p99, not only the median.</li>
+<li>In Kubernetes, labels on a pod template are part of the release: change them and the pods restart.</li>
+<li>"Free" is a design constraint, not an excuse. It shaped the network, the cluster and the order of the work.</li></ul>'''),
+        ('docs', 'Documentation', '''
+<h3>Run it with Docker Compose</h3>
+<ol><li>Clone <code>github.com/zaidmuzaffar/shopops-platform</code> and install Docker.</li>
+<li>Create the secret file: <code>echo "POSTGRES_PASSWORD=yourpassword" &gt; .env</code> (letters and numbers only).</li>
+<li>Start the stack: <code>docker compose up -d --build</code>, then <code>docker compose ps</code> until all three services are healthy.</li>
+<li>Open <code>http://localhost:8080</code>.</li></ol>
+<h3>Run it on Kubernetes</h3>
+<ol><li>Create a local cluster: <code>k3d cluster create shopops --agents 1 -p "8081:80@loadbalancer"</code>.</li>
+<li>Build the images and load them into the cluster: <code>docker build -t shopops-api:0.5.0 app/api</code>, <code>docker build -t shopops-web:local app/web</code>, then <code>k3d image import shopops-api:0.5.0 shopops-web:local -c shopops</code>.</li>
+<li>Create the namespace and the database secret: <code>kubectl create namespace shopops</code>, then <code>kubectl -n shopops create secret generic shopops-db --from-literal=POSTGRES_PASSWORD=yourpassword</code>.</li>
+<li>Install kube-prometheus-stack as Helm release <code>monitoring</code> in the <code>monitoring</code> namespace; the chart's alert rules and dashboard need it. To skip monitoring, set <code>monitoring.enabled=false</code>.</li>
+<li>Install Argo CD and apply <code>argocd/shopops-app.yaml</code>; Argo CD then deploys the chart from <code>main</code>. Without Argo CD: <code>helm install shopops k8s/helm/shopops -n shopops</code>.</li>
+<li>Open <code>http://localhost:8081</code>.</li></ol>
+<h3>Repository layout</h3>
+<p><code>app/api</code> — Node.js service, tests and Dockerfile. <code>app/web</code> — UI, Nginx config and Dockerfile. <code>compose.yaml</code> — the local stack. <code>.github/workflows</code> — the CI pipeline. <code>infra/</code> — Terraform for AWS. <code>k8s/base</code> — plain Kubernetes manifests (Kustomize). <code>k8s/helm/shopops</code> — the Helm chart, with the alert rules and the Grafana dashboard. <code>argocd/</code> — the Argo CD application. <code>docs/</code> — phase notes; the runbook and postmortem arrive in Phase 8.</p>'''),
+    ],
+)
+
 # =====================================================================
 # 1. STAR PUMP HOUSE
 # =====================================================================
 SPH = dict(
     file='star-pump-house.html',
     title='Star Pump House',
-    kicker='CASE STUDY 01 · LIVE IN DAILY USE',
+    kicker='CASE STUDY 02 · LIVE IN DAILY USE',
     h1='Star Pump House<br><span style="color:var(--accent)">Shop Management System</span>',
     lead='A full-stack web app that replaced paper registers in our family\'s pump and hardware shop: stock, sales, credit, suppliers, wholesale accounts, cash closing, profit — and an AI assistant that speaks Roman Urdu.',
     meta=[('ROLE', 'Sole developer: design, build, deploy, maintain'), ('USERS', 'My brother (owner) + salesman'),
@@ -183,7 +337,7 @@ SPH = dict(
 VIGIL = dict(
     file='vigil.html',
     title='Vigil',
-    kicker='CASE STUDY 02 · IN ACTIVE DEVELOPMENT',
+    kicker='CASE STUDY 03 · IN ACTIVE DEVELOPMENT',
     h1='Vigil<br><span style="color:var(--accent)">Fall detection &amp; live location</span>',
     lead='A free safety app for iPhone and Android. A small neural network on the phone watches for falls; if you don\'t answer "Are you okay?", the people in your circle get a full-screen alert with your live location.',
     meta=[('ROLE', 'Sole developer: app, ML model, backend'), ('PLATFORMS', 'Android & iOS (Flutter)'),
@@ -246,7 +400,7 @@ VIGIL = dict(
 VOICE = dict(
     file='voice-assistant.html',
     title='"Mac" Voice AI Assistant',
-    kicker='CASE STUDY 03 · IN ACTIVE DEVELOPMENT',
+    kicker='CASE STUDY 04 · IN ACTIVE DEVELOPMENT',
     h1='"Mac"<br><span style="color:var(--accent)">A voice assistant that does things</span>',
     lead='An always-on assistant for my MacBook that wakes on its name, talks back in natural Urdu or English, and actually controls the laptop — with spoken confirmation before anything destructive.',
     meta=[('ROLE', 'Sole developer'), ('PLATFORM', 'macOS (Apple Silicon)'), ('BRAIN', 'Gemini Live · Ollama fallback'),
@@ -299,7 +453,7 @@ VOICE = dict(
 LINUX = dict(
     file='linux-automation.html',
     title='Linux System Administration Automation',
-    kicker='CASE STUDY 04 · CLOUD & DEVOPS',
+    kicker='CASE STUDY 05 · CLOUD & DEVOPS',
     h1='Linux sysadmin<br><span style="color:var(--accent)">automation with Bash</span>',
     lead='A set of modular Bash scripts that turn repetitive server chores — user access, environment setup, process monitoring, log parsing and health checks — into single, repeatable commands.',
     meta=[('ROLE', 'Sole developer'), ('STACK', 'Linux · Bash · Git'), ('FOCUS', 'Operations automation'), ('STATUS', 'Complete')],
@@ -333,12 +487,12 @@ LINUX = dict(
 LAWYER = dict(
     file='lawyer-client.html',
     title='Lawyer–Client Matching Platform',
-    kicker='CASE STUDY 05 · FINAL YEAR PROJECT',
+    kicker='CASE STUDY 06 · FINAL YEAR PROJECT',
     h1='Lawyer–Client<br><span style="color:var(--accent)">Matching Platform</span>',
     lead='My final year project at COMSATS: a web platform that helps clients find the right lawyer by expertise and search criteria, built end to end from database to interface.',
     meta=[('CONTEXT', 'Final Year Project, COMSATS Abbottabad'), ('STACK', 'React · Node.js · Express · MongoDB'), ('YEAR', '2025–2026'), ('STATUS', 'Complete')],
     links=[btn('../docs/Lawyer_Client_Platform_Case_Study.pdf', 'Case study PDF ↓', True), btn('https://github.com/zaidmuzaffar', 'GitHub profile ↗')],
-    next=('star-pump-house.html', 'Star Pump House — Shop Management System'),
+    next=('shopops-platform.html', 'ShopOps Platform — Production DevOps Pipeline'),
     sections=[
         ('problem', 'The problem', '''
 <p>Finding a lawyer usually depends on word of mouth. A client with a specific legal issue has no easy way to compare lawyers by what they actually practice. The platform brings both sides together and matches them on expertise and search parameters.</p>'''),
@@ -360,6 +514,6 @@ LAWYER = dict(
     ],
 )
 
-for p in (SPH, VIGIL, VOICE, LINUX, LAWYER):
+for p in (SHOPOPS, SPH, VIGIL, VOICE, LINUX, LAWYER):
     page(p)
 print('ok', os.listdir(OUT))

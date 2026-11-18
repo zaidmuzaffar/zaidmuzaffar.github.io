@@ -96,10 +96,10 @@ window.SITE = {
   ],
   projects: [
     {
-      title: 'ShopOps Platform — Production DevOps Pipeline', status: 'build', statusText: 'IN BUILD · 2/8', cats: ['cloud'],
-      desc: 'A DevOps project run like real company work (ticket PLAT-101): an inventory API and PostgreSQL taken from laptop to production in eight phases. Done so far: hardened Docker images, a Compose stack with healthchecks, and a GitHub Actions pipeline that tests, builds, scans with Trivy and pushes to GHCR. The scanner caught real CVEs, which I patched before merge.',
+      title: 'ShopOps Platform — Production DevOps Pipeline', status: 'build', statusText: 'IN BUILD · 6/8', cats: ['cloud'],
+      desc: 'A DevOps project run like real company work (ticket PLAT-101): an inventory API and PostgreSQL taken from laptop to production in eight phases, on a $0 budget. Done so far: hardened Docker images, CI with Trivy scanning, Terraform on AWS with GitHub OIDC, Kubernetes with Helm and autoscaling, GitOps with Argo CD, and Prometheus and Grafana monitoring.',
 
-      stack: 'Node.js · PostgreSQL · Docker · Compose · GitHub Actions · Trivy · GHCR — next: Terraform · k3d · Helm · Argo CD · Prometheus',
+      stack: 'Node.js · PostgreSQL · Docker · GitHub Actions · Trivy · Terraform · AWS · Kubernetes · Helm · Argo CD · Prometheus · Grafana',
       links: [
         { label: 'Case study →', href: 'projects/shopops-platform.html', main: true },
         { label: 'Code ↗', href: 'https://github.com/zaidmuzaffar/shopops-platform' },
