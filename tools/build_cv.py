@@ -1,6 +1,6 @@
 """Builds Zaid Muzaffar's CV as HTML and renders it to PDF.
 Two versions: full (with phone, for applications) and web (no phone, for the public portfolio)."""
-import sys
+import os
 from playwright.sync_api import sync_playwright
 
 PHONE = '+92 311 9094803'
@@ -26,13 +26,13 @@ def html(with_phone):
 <style>
 @page {{ size: A4; margin: 14mm 15mm 13mm; }}
 * {{ box-sizing: border-box; }}
-body {{ margin: 0; font-family: 'Inter', 'Carlito', sans-serif; font-size: 9.6pt; line-height: 1.42; color: #1d2733; }}
+body {{ margin: 0; font-family: 'Inter', 'Carlito', sans-serif; font-size: 9.4pt; line-height: 1.4; color: #1d2733; }}
 a {{ color: #0B6E8F; text-decoration: none; }}
 header {{ text-align: center; padding-bottom: 8px; border-bottom: 2px solid #0B6E8F; }}
 h1 {{ margin: 0; font-size: 22pt; letter-spacing: 1px; color: #0E2A3B; font-weight: 800; }}
 .title {{ margin: 2px 0 6px; font-size: 11pt; color: #0B6E8F; font-weight: 600; }}
 .contact {{ font-size: 8.8pt; color: #3a4754; line-height: 1.6; }}
-h2 {{ margin: 13px 0 6px; padding-bottom: 3px; font-size: 10.2pt; letter-spacing: 1.6px; text-transform: uppercase; color: #0E2A3B; border-bottom: 1px solid #c9d6de; font-weight: 800; break-after: avoid; }}
+h2 {{ margin: 11px 0 5px; padding-bottom: 3px; font-size: 10.2pt; letter-spacing: 1.6px; text-transform: uppercase; color: #0E2A3B; border-bottom: 1px solid #c9d6de; font-weight: 800; break-after: avoid; }}
 p {{ margin: 0 0 4px; }}
 .item {{ margin-bottom: 8px; break-inside: avoid; }}
 .row {{ display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }}
@@ -54,12 +54,12 @@ li {{ margin-bottom: 1.5px; }}
 </header>
 
 <h2>Profile</h2>
-<p>Computer Science graduate focused on cloud engineering and DevOps. Completed a 160-hour Cloud &amp; DevOps internship covering Docker, Kubernetes, Terraform and CI/CD with GitHub Actions, with an overall rating of Excellent. Built and deployed a live web application on Firebase that my family's hardware business uses every day, and currently building a safety app with on-device machine learning and a bilingual voice AI assistant. Looking for a Cloud / DevOps role to automate deployment pipelines and run reliable, scalable infrastructure.</p>
+<p>Computer Science graduate focused on cloud engineering and DevOps. Completed a 160-hour Cloud &amp; DevOps internship with an overall rating of Excellent, and now building ShopOps: a production-style platform that takes a web service from laptop to Kubernetes with CI security scanning, Terraform on AWS, Helm, GitOps with Argo CD and Prometheus/Grafana monitoring, at zero cost. Also built and deployed a live Firebase web application that my family's hardware business uses every day. Looking for a Cloud / DevOps role to automate deployment pipelines and run reliable, scalable infrastructure.</p>
 
 <h2>Experience</h2>
 <div class="item">
   <div class="row"><b>Cloud &amp; DevOps Intern</b><span class="date">Completed 15 Oct 2026 &nbsp;·&nbsp; 4 weeks, 160 hours</span></div>
-  <div class="sub">Skill Set Go EduTech &nbsp;·&nbsp; Virtual internship &nbsp;·&nbsp; Overall performance: Excellent</div>
+  <div class="sub">Skill Set Go EduTech &nbsp;·&nbsp; Virtual internship &nbsp;·&nbsp; Overall performance: Excellent &nbsp;·&nbsp; <a href="https://zaidmuzaffar.github.io/docs/Cloud_DevOps_Internship_Certificate_Zaid_Muzaffar.pdf">Certificate</a> &nbsp;·&nbsp; <a href="https://github.com/zaidmuzaffar/SkillSetGo-Cloud-Devops-Internship">Lab repo</a></div>
   <ul>
     <li>Containerised an Nginx web application with <b>Docker</b> and <b>Docker Compose</b> (web + Redis services).</li>
     <li>Wrote a <b>GitHub Actions</b> workflow that builds the Docker image automatically on every push and pull request.</li>
@@ -71,15 +71,27 @@ li {{ margin-bottom: 1.5px; }}
 
 <h2>Skills</h2>
 <div class="skills">
-  <b>CI/CD &amp; Automation</b><span>GitHub Actions · CI/CD pipelines · Git &amp; GitHub · Bash / shell scripting · Zenhub · Agile / Scrum</span>
-  <b>Containers &amp; IaC</b><span>Docker · Docker Compose · Kubernetes (Minikube, kubectl, ConfigMaps, Secrets) · Terraform</span>
-  <b>Cloud</b><span>AWS (IAM, EC2, VPC, S3, Route 53) · Firebase (Hosting, Firestore, Authentication, App Check)</span>
+  <b>CI/CD &amp; Automation</b><span>GitHub Actions · CI/CD pipelines · Trivy image scanning · GitHub OIDC · Git &amp; GitHub · Bash / shell scripting · Zenhub · Agile / Scrum</span>
+  <b>Containers &amp; Kubernetes</b><span>Docker (multi-stage, non-root) · Docker Compose · Kubernetes (k3d/k3s, Minikube, kubectl) · Helm · Argo CD (GitOps) · HPA autoscaling</span>
+  <b>IaC &amp; Cloud</b><span>Terraform (S3 remote state with locking) · AWS (IAM, VPC, EC2, S3, Route 53, Budgets) · Firebase (Hosting, Firestore, Authentication, App Check)</span>
+  <b>Observability</b><span>Prometheus · Grafana · PromQL alert rules · RED metrics · structured JSON logs</span>
   <b>Systems</b><span>Linux administration · process management · networking (subnets, routing, DNS) · SSH · environment configuration</span>
-  <b>Web &amp; Data</b><span>JavaScript · HTML/CSS · React.js · Node.js · Express · REST APIs · MongoDB · MySQL · Cloud Firestore</span>
+  <b>Web &amp; Data</b><span>JavaScript · HTML/CSS · React.js · Node.js · Express · REST APIs · PostgreSQL · MongoDB · MySQL · Cloud Firestore</span>
   <b>AI &amp; Mobile</b><span>Google Gemini API (function calling) · Ollama · TensorFlow Lite · Python · Flutter (Dart)</span>
 </div>
 
 <h2>Projects</h2>
+<div class="item">
+  <div class="row"><b>ShopOps Platform – Production DevOps Pipeline (6 of 8 phases done)</b><span class="date">Nov 2026 – Present</span></div>
+  <ul>
+    <li>Taking a Node.js and PostgreSQL inventory service from laptop to production in eight phases, planned like company work (ticket PLAT-101) on a zero-cost budget.</li>
+    <li><b>CI:</b> GitHub Actions runs the tests, builds multi-stage non-root images and blocks fixable HIGH/CRITICAL vulnerabilities with Trivy; images are pushed to GHCR only from main.</li>
+    <li><b>Terraform on AWS:</b> two-zone VPC without a NAT gateway, tiered security groups, S3 remote state with locking, budget alerts, and GitHub OIDC instead of stored keys.</li>
+    <li><b>Kubernetes:</b> Helm chart with probes, resource limits, autoscaling (2–5 pods) and disruption budgets, deployed by Argo CD with automatic sync and self-healing.</li>
+    <li><b>Monitoring:</b> Prometheus metrics built into the API, a Grafana dashboard and alert rules. Debugged real failures, such as a CI role denied by AWS, traced through CloudTrail.</li>
+  </ul>
+  <div class="tech"><b>Tech:</b> Node.js, PostgreSQL, Docker, GitHub Actions, Trivy, Terraform, AWS, Kubernetes (k3d), Helm, Argo CD, Prometheus, Grafana &nbsp;·&nbsp; <a href="https://github.com/zaidmuzaffar/shopops-platform">Code</a> · <a href="https://zaidmuzaffar.github.io/projects/shopops-platform.html">Case study</a></div>
+</div>
 <div class="item">
   <div class="row"><b>Star Pump House – Shop Management System (Live)</b><span class="date">Sep 2026 – Oct 2026</span></div>
   <ul>
@@ -89,11 +101,6 @@ li {{ margin-bottom: 1.5px; }}
     <li>57 releases shipped from real user feedback with the Firebase CLI; runs at zero cost on Firebase's free tier.</li>
   </ul>
   <div class="tech"><b>Tech:</b> JavaScript, Firebase (Auth, Firestore, Hosting, App Check), Gemini AI, Git &nbsp;·&nbsp; <a href="https://starpumphouse.web.app">Live demo</a> · <a href="https://github.com/zaidmuzaffar/star-pump-house">Code</a> · Demo login: demo@starpumphouse.com / Star123@</div>
-</div>
-<div class="item">
-  <div class="row"><b>Skill Go Lab – DevOps Internship Lab</b><span class="date">Oct 2026</span></div>
-  <p>Week-by-week internship repository: Linux administration reports, a Dockerised Nginx app with Compose, a GitHub Actions build workflow, a Minikube deployment with ConfigMaps and Secrets, and Terraform basics.</p>
-  <div class="tech"><b>Tech:</b> Linux, Docker, Docker Compose, GitHub Actions, Kubernetes (Minikube), Terraform &nbsp;·&nbsp; <a href="https://github.com/zaidmuzaffar/SkillSetGo-Cloud-Devops-Internship">Code</a></div>
 </div>
 <div class="item">
   <div class="row"><b>Automated Linux System Administration &amp; Shell Scripts</b><span class="date"></span></div>
@@ -128,7 +135,7 @@ li {{ margin-bottom: 1.5px; }}
 
 <h2>Certifications</h2>
 <ul>
-  <li><b>Cloud &amp; DevOps Internship — Certificate of Completion</b>, Skill Set Go EduTech (Oct 2026, ID SSG/REG/B1/0457)</li>
+  <li><a href="https://zaidmuzaffar.github.io/docs/Cloud_DevOps_Internship_Certificate_Zaid_Muzaffar.pdf"><b>Cloud &amp; DevOps Internship — Certificate of Completion</b></a>, Skill Set Go EduTech (Oct 2026, ID SSG/REG/B1/0457)</li>
   <li><b>IBM DevOps and Software Engineering (Coursera):</b> <a href="https://www.coursera.org/account/accomplishments/verify/ID5UOQ95D0QG">Introduction to DevOps</a> · <a href="https://www.coursera.org/account/accomplishments/verify/BLP5F4L1Z822">Introduction to Cloud Computing</a> · <a href="https://www.coursera.org/account/accomplishments/verify/RV1DV08NWGEQ">Agile Development and Scrum</a> · <a href="https://www.coursera.org/account/accomplishments/verify/320E4Z1HD7JE">Introduction to Software Engineering</a> · <a href="https://coursera.org/verify/EG8VQBHHNTO5">Getting Started with Git and GitHub</a></li>
   <li>Linux Administration &amp; DevOps Practical Hands-on Training (self-paced)</li>
 </ul>
@@ -143,7 +150,7 @@ li {{ margin-bottom: 1.5px; }}
 if __name__ == '__main__':
     out = {}
     for name, ph in (('Zaid_Muzaffar_CV.pdf', True), ('Zaid_Muzaffar_CV_web.pdf', False)):
-        path = './' + name
+        path = os.path.abspath(name)   # Chrome needs an absolute file:// URL
         open(path.replace('.pdf', '.html'), 'w').write(html(ph))
         with sync_playwright() as p:
             b = p.chromium.launch(executable_path='/usr/bin/google-chrome')
