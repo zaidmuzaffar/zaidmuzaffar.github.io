@@ -83,12 +83,12 @@ REPO = 'https://github.com/zaidmuzaffar/shopops-platform'
 SHOPOPS = dict(
     file='shopops-platform.html',
     title='ShopOps Platform',
-    kicker='CASE STUDY 01 · CLOUD &amp; DEVOPS · IN BUILD · 6/8',
+    kicker='CASE STUDY 01 · CLOUD &amp; DEVOPS · IN BUILD · 7/8',
     h1='ShopOps Platform<br><span style="color:var(--accent)">From laptop to production, the DevOps way</span>',
-    lead='A small inventory service taken through the whole path a real team uses to ship software: containers, a CI pipeline with security scanning, infrastructure as code, Kubernetes, GitOps and monitoring. Planned as company ticket PLAT-101 and built phase by phase on a zero-cost budget. Six of the eight phases are done.',
+    lead='A small inventory service taken through the whole path a real team uses to ship software: containers, a CI pipeline with security scanning, infrastructure as code, Kubernetes, GitOps, monitoring and hardening. Planned as company ticket PLAT-101 and built phase by phase on a zero-cost budget. Seven of the eight phases are done.',
     meta=[('ROLE', 'Sole engineer: app, containers, pipeline, infrastructure'), ('TICKET', 'PLAT-101 · 8 phases'),
-          ('DONE', 'Phase 0 → 6: app, Docker, CI, Terraform, Kubernetes, GitOps, monitoring'),
-          ('NEXT', 'TLS · backups · k6 load tests · runbook'), ('BUDGET', '$0 — free tools and free tiers only')],
+          ('DONE', 'Phase 0 → 7: app, Docker, CI, Terraform, Kubernetes, GitOps, monitoring, hardening'),
+          ('NEXT', 'Runbook · game day · postmortem · cost report'), ('BUDGET', '$0 — free tools and free tiers only')],
     links=[btn(REPO, 'Source code ↗', True), btn(REPO + '/actions', 'Pipeline runs ↗'),
            btn(REPO + '/tree/main/k8s/helm/shopops', 'Helm chart ↗'), btn(REPO + '/tree/main/infra', 'Terraform ↗')],
     next=('star-pump-house.html', 'Star Pump House — Shop Management System'),
@@ -98,13 +98,13 @@ SHOPOPS = dict(
 <div class="callout brass"><span class="mono">PLAT-101</span><p>Take the shop inventory service from "runs on my laptop" to a reproducible, tested, scanned and observable deployment. Every change goes through a pull request and a pipeline. Secrets never enter Git. <strong>Total cost: zero</strong> — local clusters and free tiers only, with a short, budget-capped cloud deploy at the end that is torn down with <code>terraform destroy</code>.</p></div>
 <p>The application is deliberately small — a REST API for products with a web front end — so the attention goes to how it is built, shipped and run.</p>'''),
         ('architecture', 'Architecture', flow([
-            ('Browser', 'localhost:8081'),
-            ('Ingress · Traefik', 'The only way in'),
+            ('Browser', 'https://localhost:8443'),
+            ('Ingress · Traefik', 'TLS from cert-manager'),
             ('web · Nginx', '3 pods · static UI, proxies /api'),
             ('api · Node.js', '2–5 pods · scales on CPU'),
-            ('PostgreSQL 16', 'StatefulSet + volume'),
+            ('PostgreSQL 16', 'Volume + daily backups'),
         ]) + '''
-<p>The stack runs on a local Kubernetes cluster: k3d, with one server and one agent node inside Docker. Only the ingress is reachable from outside; the API and the database are internal services that find each other by name. Prometheus collects the API's metrics every 30 seconds and Grafana turns them into the dashboard shown in Phase 6.</p>
+<p>The stack runs on a local Kubernetes cluster: k3d, with one server and one agent node inside Docker. Only the ingress is reachable from outside, and only over HTTPS (plain HTTP just redirects); the API and the database are internal services that find each other by name. Prometheus collects the API's metrics every 30 seconds and Grafana turns them into the dashboard shown in Phase 6.</p>
 <h3>How a change reaches the cluster</h3>''' + flow([
             ('Pull request', 'Code, chart or config'),
             ('CI checks', 'Tests · build · Trivy · Terraform plan'),
@@ -122,8 +122,8 @@ SHOPOPS = dict(
              ['4 · Kubernetes', 'k3d cluster, Helm chart with dev and prod values, probes, resource limits, autoscaling, disruption budgets', '✅ Done'],
              ['5 · GitOps', 'Argo CD deploys the chart from Git with automatic sync, pruning and self-healing', '✅ Done'],
              ['6 · Observability', 'Prometheus metrics from the API, a Grafana dashboard and three alert rules', '✅ Done'],
-             ['7 · Hardening', 'TLS, secret management, database backups, k6 load tests', 'Next'],
-             ['8 · Operations', 'Runbook, game day, postmortem and final documentation', 'Planned']])),
+             ['7 · Hardening', 'Daily backups with a restore test, Sealed Secrets, TLS with cert-manager, a k6 load test with pass/fail thresholds', '✅ Done'],
+             ['8 · Operations', 'Runbook, game day, postmortem and final documentation', 'Next']])),
         ('containers', 'Phase 1 — Containers', features([
             ('Multi-stage build', 'Separate stages install dependencies, run the tests and build a small runtime image that holds only what the app needs.'),
             ('Layer caching', 'Dependency files are copied before the source, so <code>npm ci</code> only re-runs when dependencies change.'),
@@ -180,9 +180,23 @@ SHOPOPS = dict(
 <figure class="shot"><img src="../assets/shopops/alert-rules.jpg" alt="Grafana alert list showing the three ShopOps alert rules, all in the Normal state" loading="lazy"><figcaption>The three alert rules, loaded from the Helm chart, all Normal.</figcaption></figure>
 <h3>What the dashboard taught me</h3>
 <p>During that burst the requests graph peaked below 3 per second, yet the autoscaler still added a pod. A two-minute <code>rate()</code> spreads a short burst across the whole window, while the autoscaler checks CPU every 15 seconds. Latency told the same story: at 14:10 the median stayed near 2.5 ms while p99 jumped to 21 ms. Averages hide exactly the moments you need to see.</p>'''),
+        ('hardening', 'Phase 7 — Hardening', '''
+<p>Phase 7 closed the gaps a real service cannot live with: data that could be lost for good, a password typed in by hand, traffic in plain text, and no proof of how the system behaves under load.</p>''' + features([
+            ('Backups that are proven', 'A CronJob runs <code>pg_dump</code> every day and keeps the newest 7 dumps on their own volume, which Helm and Argo CD are told never to delete. A second, suspended job restores the newest dump into a scratch database and compares row counts. The first run printed <em>RESTORE TEST PASSED</em>.'),
+            ('Password in Git, encrypted', "With Sealed Secrets the database password lives in Git as ciphertext that only the controller inside the cluster can open, so the whole cluster can be rebuilt from Git. The controller's private key is backed up outside it."),
+            ('HTTPS with cert-manager', "cert-manager runs a small local CA and issues and renews the site certificate; plain HTTP only redirects. In the cloud a Let's Encrypt issuer takes the local CA's place and nothing else changes. Checked with <code>curl --cacert</code>, not <code>-k</code>."),
+            ('An alert for silent backups', 'A fourth alert fires when no backup has succeeded for 26 hours: a backup job that quietly stopped is otherwise only noticed on the day it is needed.'),
+            ('Load test with a pass/fail line', 'k6 plays shoppers browsing and staff changing stock at the same time, up to 55 virtual users. It fails if more than 1% of requests fail or p95 goes above 500 ms, the same line as the latency alert.'),
+            ('A base image that gets patched fast', 'The web image moved to the official nginx image, made non-root with the same few changes nginx-unprivileged makes, after five days of waiting for a patched base image (see below).'),
+        ]) + '''
+<p><b>Result:</b> the final run sent 7,460 requests in 2.5 minutes, about 50 per second, and not one failed. p95 was 8.16 ms in k6 but 4.78 ms in Grafana: k6 times each request from my Mac, through Docker, the k3d load balancer, Traefik and nginx, while the API's histogram only sees the time spent inside the app. Two API pods were enough. CPU peaked at about 0.022 cores per pod, below the 0.03 the autoscaler aims for, so it kept two; in the first run it had briefly added a third.</p>
+<figure class="shot"><img src="../assets/shopops/k6-summary.jpg" alt="k6 summary: all three thresholds passed, 7,460 requests at about 50 per second, 0 failed, p95 8.16 ms" loading="lazy"><figcaption>k6 after 2.5 minutes of shoppers and staff at the same time: 7,460 requests, none failed, p95 8.16 ms.</figcaption></figure>
+<figure class="shot"><img src="../assets/shopops/grafana-load-test.jpg" alt="Grafana dashboard during the load test: traffic climbing on the right, 0% errors, p95 4.78 ms and two API pods throughout" loading="lazy"><figcaption>The same run in Grafana: the climb on the right, 0% errors, p95 under 5 ms and two pods the whole time.</figcaption></figure>'''),
         ('incidents', 'What went wrong, and how I fixed it', '''
 <h3>The scanner blocked my first pull request</h3>
 <p>Both image builds failed on the first pipeline run: Trivy found <strong>high-severity vulnerabilities in zlib</strong> inside the base images, with fixed versions already available. I upgraded OS packages during the build, moved Nginx to the maintained stable image and removed <code>npm</code> and <code>corepack</code> from the API runtime image, which the running app never uses. The next run passed. The problem was caught before merge, not in production.</p>
+<h3>A pull request blocked by an image it never touched</h3>
+<p>The backups pull request changed only the Helm chart, yet the web image scan failed: Trivy found three critical and three high vulnerabilities in nginx 1.30.6, fixed in nginx 1.30.7 the day before. The base image, nginxinc/nginx-unprivileged, is rebuilt only once a week, so no fixed image existed yet. None of the six affected a feature our config uses (HTTP/2, HTTP/3, TLS, the resolver, the mail proxy), but instead of telling the scanner to look away I waited. Five days later the image was still old, while the official nginx image already shipped 1.30.8. So the web image moved to the official image, made non-root with the same changes the unprivileged image applies, tested with a read-only filesystem and no Linux capabilities, and shipped in its own small pull request. The blocked one was then updated with <code>gh pr update-branch</code> and merged.</p>
 <h3>The pipeline was locked out of AWS</h3>
 <p>Once the OIDC role existed, the Terraform job failed with <code>AccessDenied</code>. The trust policy looked right, so instead of guessing I opened CloudTrail and read what AWS had actually received. GitHub identified the repository by its <strong>immutable owner and repository IDs</strong> (<code>repo:owner@id/name@id</code>), not the plain name my policy expected. After I matched that format the job passed. A bonus: a deleted and recreated repository with the same name cannot use the role.</p>
 <h3>Tests that never ran</h3>
@@ -190,7 +204,9 @@ SHOPOPS = dict(
 <h3>A database restart hidden in the chart</h3>
 <p>While bumping the chart version I noticed that every pod template carried the chart's version labels. A new label means a new pod template, and a new template means new pods, so every release would have restarted PostgreSQL for no reason. The database and web pods now carry only stable labels.</p>
 <h3>My load generator ran out of ports</h3>
-<p>To test the autoscaler I fired requests in a tight loop from a busybox pod. After a while every request failed with <em>Cannot assign requested address</em>: a closed connection keeps its local port reserved for a while, and the loop used them up faster than they came back. A short pause between requests fixed it; a proper load-testing tool, k6, is part of Phase 7.</p>'''),
+<p>To test the autoscaler I fired requests in a tight loop from a busybox pod. After a while every request failed with <em>Cannot assign requested address</em>: a closed connection keeps its local port reserved for a while, and the loop used them up faster than they came back. A short pause between requests fixed it, and in Phase 7 k6, which reuses connections, replaced the loop.</p>
+<h3>The load test tripped over itself</h3>
+<p>The first full k6 run passed its thresholds but reported 17 failed checks out of 7,460 requests, all of them 404s. Shoppers had opened products that the staff scenario had created and deleted a moment earlier. A 404 is the right answer for a product that no longer exists, so the shop was fine; the test was not. Shoppers now skip the test's own products, and the next run had no failures.</p>'''),
         ('decisions', 'Key decisions', table(
             ['Decision', 'Why'],
             [['Plain <code>node:http</code>, one dependency (<code>pg</code>)', 'A small dependency tree is less to patch and less for a scanner to flag.'],
@@ -202,7 +218,11 @@ SHOPOPS = dict(
              ['No NAT gateway', "The private subnets don't need the internet yet, and a NAT gateway is billed for every hour it exists."],
              ['Local Kubernetes (k3d) instead of EKS', 'Same skills, zero cost; the cloud is used briefly at the end, behind budget alerts.'],
              ['The cluster changes only through Git (Argo CD)', 'Every change is reviewed, recorded in history and reversible with a revert.'],
-             ['Dashboards and alerts inside the Helm chart', 'They are versioned and reviewed like code, and deployed together with the app they watch.']])),
+             ['Dashboards and alerts inside the Helm chart', 'They are versioned and reviewed like code, and deployed together with the app they watch.'],
+             ['Official nginx image, made non-root by us', 'nginx-unprivileged is rebuilt once a week; the official image gets each nginx release within about a day.'],
+             ['Sealed Secrets for the database password', 'Git stays the single source of truth with no plain-text secret in it, and no paid secret store is needed.'],
+             ['cert-manager with a local CA', "Certificates are issued and renewed automatically, with the same Ingress setup Let's Encrypt will use in the cloud."],
+             ['Load-test thresholds equal to the alert', 'p95 under 500 ms means the same thing in the k6 test and in production monitoring.']])),
         ('learned', 'What I have learned so far', '''
 <ul><li>"Started" is not "ready" — healthchecks and readiness are what make a system start reliably.</li>
 <li>A container image is only as secure as its base layers; scanning has to run on every change.</li>
@@ -210,6 +230,9 @@ SHOPOPS = dict(
 <li>When access is denied, read the audit log before changing policies. CloudTrail showed exactly what AWS received.</li>
 <li>Averages hide the moments that matter; look at short windows and at p95 and p99, not only the median.</li>
 <li>In Kubernetes, labels on a pod template are part of the release: change them and the pods restart.</li>
+<li>A backup only counts once it has been restored, so the restore test is part of the backup.</li>
+<li>Base images have their own update rhythm. With a strict scanner, a slow one turns into blocked pull requests.</li>
+<li>When a check fails, look at the test as well as the system: the first load test's failures were the test tripping over itself.</li>
 <li>"Free" is a design constraint, not an excuse. It shaped the network, the cluster and the order of the work.</li></ul>'''),
         ('docs', 'Documentation', '''
 <h3>Run it with Docker Compose</h3>
@@ -218,14 +241,14 @@ SHOPOPS = dict(
 <li>Start the stack: <code>docker compose up -d --build</code>, then <code>docker compose ps</code> until all three services are healthy.</li>
 <li>Open <code>http://localhost:8080</code>.</li></ol>
 <h3>Run it on Kubernetes</h3>
-<ol><li>Create a local cluster: <code>k3d cluster create shopops --agents 1 -p "8081:80@loadbalancer"</code>.</li>
+<ol><li>Create a local cluster: <code>k3d cluster create shopops --agents 1 -p "8081:80@loadbalancer" -p "8443:443@loadbalancer"</code>.</li>
 <li>Build the images and load them into the cluster: <code>docker build -t shopops-api:0.5.0 app/api</code>, <code>docker build -t shopops-web:local app/web</code>, then <code>k3d image import shopops-api:0.5.0 shopops-web:local -c shopops</code>.</li>
-<li>Create the namespace and the database secret: <code>kubectl create namespace shopops</code>, then <code>kubectl -n shopops create secret generic shopops-db --from-literal=POSTGRES_PASSWORD=yourpassword</code>.</li>
-<li>Install kube-prometheus-stack as Helm release <code>monitoring</code> in the <code>monitoring</code> namespace; the chart's alert rules and dashboard need it. To skip monitoring, set <code>monitoring.enabled=false</code>.</li>
-<li>Install Argo CD and apply <code>argocd/shopops-app.yaml</code>; Argo CD then deploys the chart from <code>main</code>. Without Argo CD: <code>helm install shopops k8s/helm/shopops -n shopops</code>.</li>
-<li>Open <code>http://localhost:8081</code>.</li></ol>
+<li>Install the add-ons with Helm: Sealed Secrets, kube-prometheus-stack (release <code>monitoring</code>) and cert-manager. The exact commands are in the README.</li>
+<li>Seal your own database password with <code>kubeseal --raw</code> and put it into <code>db.sealedPassword</code> in the chart values: a sealed value only opens on the cluster it was sealed for.</li>
+<li>Install Argo CD and apply <code>argocd/shopops-app.yaml</code>; Argo CD then deploys the chart from <code>main</code>.</li>
+<li>Open <code>https://localhost:8443</code> (HTTP on 8081 redirects there) and run the load test with <code>k6 run loadtest/shopops.js</code>.</li></ol>
 <h3>Repository layout</h3>
-<p><code>app/api</code> — Node.js service, tests and Dockerfile. <code>app/web</code> — UI, Nginx config and Dockerfile. <code>compose.yaml</code> — the local stack. <code>.github/workflows</code> — the CI pipeline. <code>infra/</code> — Terraform for AWS. <code>k8s/base</code> — plain Kubernetes manifests (Kustomize). <code>k8s/helm/shopops</code> — the Helm chart, with the alert rules and the Grafana dashboard. <code>argocd/</code> — the Argo CD application. <code>docs/</code> — phase notes; the runbook and postmortem arrive in Phase 8.</p>'''),
+<p><code>app/api</code> — Node.js service, tests and Dockerfile. <code>app/web</code> — UI, Nginx config and Dockerfile. <code>compose.yaml</code> — the local stack. <code>.github/workflows</code> — the CI pipeline. <code>infra/</code> — Terraform for AWS. <code>k8s/base</code> — plain Kubernetes manifests (Kustomize). <code>k8s/helm/shopops</code> — the Helm chart: the app, alert rules, Grafana dashboard, backups, sealed password and TLS. <code>argocd/</code> — the Argo CD application. <code>loadtest/</code> — the k6 load test. <code>docs/</code> — phase notes; the runbook and postmortem arrive in Phase 8.</p>'''),
     ],
 )
 

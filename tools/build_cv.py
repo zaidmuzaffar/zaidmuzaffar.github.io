@@ -1,9 +1,12 @@
 """Builds Zaid Muzaffar's CV as HTML and renders it to PDF.
-Two versions: full (with phone, for applications) and web (no phone, for the public portfolio)."""
+Two versions: full (with phone, for applications) and web (no phone, for the public portfolio).
+The phone number is not stored in this public repo: set CV_PHONE to build the full version, e.g.
+    CV_PHONE='+92 ...' python3 tools/build_cv.py
+Without it only the web version is built."""
 import os
 from playwright.sync_api import sync_playwright
 
-PHONE = '+92 311 9094803'
+PHONE = os.environ.get('CV_PHONE', '').strip()
 
 def contact(with_phone):
     items = []
@@ -82,15 +85,15 @@ li {{ margin-bottom: 1.5px; }}
 
 <h2>Projects</h2>
 <div class="item">
-  <div class="row"><b>ShopOps Platform – Production DevOps Pipeline (6 of 8 phases done)</b><span class="date">Nov 2026 – Present</span></div>
+  <div class="row"><b>ShopOps Platform – Production DevOps Pipeline (7 of 8 phases done)</b><span class="date">Nov 2026 – Present</span></div>
   <ul>
     <li>Taking a Node.js and PostgreSQL inventory service from laptop to production in eight phases, planned like company work (ticket PLAT-101) on a zero-cost budget.</li>
     <li><b>CI:</b> GitHub Actions runs the tests, builds multi-stage non-root images and blocks fixable HIGH/CRITICAL vulnerabilities with Trivy; images are pushed to GHCR only from main.</li>
     <li><b>Terraform on AWS:</b> two-zone VPC without a NAT gateway, tiered security groups, S3 remote state with locking, budget alerts, and GitHub OIDC instead of stored keys.</li>
     <li><b>Kubernetes:</b> Helm chart with probes, resource limits, autoscaling (2–5 pods) and disruption budgets, deployed by Argo CD with automatic sync and self-healing.</li>
-    <li><b>Monitoring:</b> Prometheus metrics built into the API, a Grafana dashboard and alert rules. Debugged real failures, such as a CI role denied by AWS, traced through CloudTrail.</li>
+    <li><b>Monitoring and hardening:</b> Prometheus metrics, a Grafana dashboard and alerts; daily backups with a restore test, Sealed Secrets, TLS via cert-manager, k6 load tests (50 req/s, 0 errors, p95 8 ms).</li>
   </ul>
-  <div class="tech"><b>Tech:</b> Node.js, PostgreSQL, Docker, GitHub Actions, Trivy, Terraform, AWS, Kubernetes (k3d), Helm, Argo CD, Prometheus, Grafana &nbsp;·&nbsp; <a href="https://github.com/zaidmuzaffar/shopops-platform">Code</a> · <a href="https://zaidmuzaffar.github.io/projects/shopops-platform.html">Case study</a></div>
+  <div class="tech"><b>Tech:</b> Node.js, PostgreSQL, Docker, GitHub Actions, Trivy, Terraform, AWS, Kubernetes (k3d), Helm, Argo CD, Prometheus, Grafana, cert-manager, k6 &nbsp;·&nbsp; <a href="https://github.com/zaidmuzaffar/shopops-platform">Code</a> · <a href="https://zaidmuzaffar.github.io/projects/shopops-platform.html">Case study</a></div>
 </div>
 <div class="item">
   <div class="row"><b>Star Pump House – Shop Management System (Live)</b><span class="date">Sep 2026 – Oct 2026</span></div>
@@ -149,7 +152,12 @@ li {{ margin-bottom: 1.5px; }}
 
 if __name__ == '__main__':
     out = {}
-    for name, ph in (('Zaid_Muzaffar_CV.pdf', True), ('Zaid_Muzaffar_CV_web.pdf', False)):
+    versions = [('Zaid_Muzaffar_CV_web.pdf', False)]
+    if PHONE:
+        versions.insert(0, ('Zaid_Muzaffar_CV.pdf', True))
+    else:
+        print('CV_PHONE not set: building only the web version')
+    for name, ph in versions:
         path = os.path.abspath(name)   # Chrome needs an absolute file:// URL
         open(path.replace('.pdf', '.html'), 'w').write(html(ph))
         with sync_playwright() as p:
