@@ -177,7 +177,7 @@ SHOPOPS = dict(
             ('Light enough for a laptop', 'Prometheus keeps two days of data and Alertmanager is off until there is a notification channel, so the whole stack runs next to the app.'),
         ]) + '''
 <figure class="shot"><img src="../assets/shopops/grafana-dashboard.jpg" alt="Grafana dashboard for the ShopOps API with request rate, error rate, p95 latency, running version, requests by route and status code, latency percentiles and the number of API pods" loading="lazy"><figcaption>Grafana: the API dashboard during a test. 0% errors, p95 under 5 ms, and the autoscaler adding a third pod during a burst at 14:03.</figcaption></figure>
-<figure class="shot"><img src="../assets/shopops/alert-rules.jpg" alt="Grafana alert list showing the three ShopOps alert rules, all in the Normal state" loading="lazy"><figcaption>The three alert rules, loaded from the Helm chart, all Normal.</figcaption></figure>
+<figure class="shot"><img src="../assets/shopops/alert-rules.jpg" alt="Grafana alert list showing the four ShopOps alert rules, all in the Normal state" loading="lazy"><figcaption>The alert rules, loaded from the Helm chart, all Normal: the three from this phase and the backup alert added in Phase 7.</figcaption></figure>
 <h3>What the dashboard taught me</h3>
 <p>During that burst the requests graph peaked below 3 per second, yet the autoscaler still added a pod. A two-minute <code>rate()</code> spreads a short burst across the whole window, while the autoscaler checks CPU every 15 seconds. Latency told the same story: at 14:10 the median stayed near 2.5 ms while p99 jumped to 21 ms. Averages hide exactly the moments you need to see.</p>'''),
         ('hardening', 'Phase 7 — Hardening', '''
